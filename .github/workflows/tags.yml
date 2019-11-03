@@ -9,4 +9,5 @@ jobs:
     name: github ref
     runs-on: ubuntu-latest
     steps:
-      - echo "github ref: ${GITHUB_REF}"
+      - name: output
+        run: echo "github ref: ${GITHUB_REF}"
