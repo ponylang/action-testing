@@ -1,7 +1,7 @@
 on:
   push:
     tags:
-      - v2
+      - /^\d+$/
 
 jobs:
   tag-tester:
