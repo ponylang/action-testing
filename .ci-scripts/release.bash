@@ -72,8 +72,8 @@ body=$(changelog-tool get "$VERSION")
 
 jsontemplate="
 {
-  \"tag_name\":\$VERSION,
-  \"name\":\$VERSION,
+  \"tag_name\":\$version,
+  \"name\":\$version,
   \"body\":\$body
 }
 "
