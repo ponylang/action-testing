@@ -1,7 +1,7 @@
 on:
   push:
     tags:
-      - v1
+      - *.*.*
 
 jobs:
   tag-tester:
