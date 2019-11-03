@@ -3,7 +3,7 @@ on:
     tags:
       - v1
 
- jobs:
+jobs:
   tag-tester:
     runs-on: ubuntu-latest
     name: Tag Tester
