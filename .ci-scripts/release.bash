@@ -114,6 +114,3 @@ git push origin master
 
 # delete release-VERSION tag
 git push --delete origin "release-${VERSION}"
-
-# delete prep-release-VERSION branch
-git push --delete origin "prep-release-${VERSION}"
