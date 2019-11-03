@@ -21,9 +21,9 @@ EOF
 }
 
 # Gather expected arguments.
-if [ $# -lt 2 ]
+if [ $# -lt 1 ]
 then
-  echo "Tag and GH personal access token are required"
+  echo "Tag is required"
   exit 1
 fi
 
