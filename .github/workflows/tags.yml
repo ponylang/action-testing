@@ -1,0 +1,12 @@
+name: Tag testing
+
+on:
+  push:
+    tags: release-*.*.*
+
+jobs:
+  github-ref:
+    name: github ref
+    runs-on: ubuntu-latest
+    steps:
+      - echo "github ref: ${GITHUB_REF}"
