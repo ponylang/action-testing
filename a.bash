@@ -3,5 +3,7 @@
 DIRTY=$(git status -s)
 
 if [[ ${DIRTY} == "" ]]; then
-  echo "not"
+  exit 0
 fi
+
+echo "we commit here"
