@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file. This projec
 ### Added
 
 
+- Another PR with changelog label ([PR #19]())
 ### Changed
 
 
