@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file. This projec
 ### Added
 
 
+- Hopefully correct URL ([PR #22](https://github.com/ponylang/action-testing/pull/22))
 - Coming from a fork ([PR #21](https://api.github.com/repos/ponylang/action-testing/pulls/21))
 - clb5 pr with changelog label ([PR #20](https://api.github.com/repos/ponylang/action-testing/pulls/20))
 - clb5 pr with changelog label ([PR #20](https://api.github.com/repos/ponylang/action-testing/pulls/20))
