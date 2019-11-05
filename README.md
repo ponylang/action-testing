@@ -3,6 +3,8 @@
 a changelog-bot pr test
 PR with no labels
 
+PR with changelog label
+
 pushing once a PR is open
 
 one more no pr test
