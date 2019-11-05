@@ -1,3 +1,5 @@
+name: Changelog bot
+
 on: push
 
 jobs:
