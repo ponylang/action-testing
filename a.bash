@@ -1,4 +1,7 @@
 #!/bin/bash
 
 DIRTY=$(git status -s)
-echo ${DIRTY}
+
+if [[ ${DIRTY} == "" ]]; then
+  echo "not"
+fi
