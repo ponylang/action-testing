@@ -1,6 +1,4 @@
-on:
-  pull_request:
-    types: [closed]
+on: push
 
 jobs:
   changelog-bot:
