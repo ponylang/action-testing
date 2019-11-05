@@ -3,6 +3,7 @@
 a changelog-bot pr test
 PR with no labels
 
+another PR with changelog tool
 another PR with changelog label
 PR with changelog label
 
