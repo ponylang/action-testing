@@ -2,6 +2,8 @@
 
 cbl5 pr with changelog label
 
+cbl6: also with a changelog label - is the url correct?
+
 coming from a fork!
 
 a changelog-bot pr test
