@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file. This projec
 ### Added
 
 
+- clb5 pr with changelog label ([PR #20](https://api.github.com/repos/ponylang/action-testing/pulls/20))
 - Another PR with changelog label ([PR #19]())
 ### Changed
 
