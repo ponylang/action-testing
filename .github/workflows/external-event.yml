@@ -22,3 +22,7 @@ jobs:
         if: github.event.client_payload.hello == 'world'
         env:
           HELLO: ${{ github.event.client_payload.hello }}
+      - name: event
+        run: echo "$EVENT"
+        env:
+          EVENT: ${{ toJson(github.event) }}
