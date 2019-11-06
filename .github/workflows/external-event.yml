@@ -10,4 +10,4 @@ jobs:
       - name: echo it
         run: echo "$EVENT_TYPE"
         env:
-          EVENT_TYPE: ${{ toJson(github.event) }}
+          EVENT_TYPE: ${{ github.event.action }}
