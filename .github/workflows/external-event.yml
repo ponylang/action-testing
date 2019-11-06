@@ -8,5 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: echo it
-        run: echo "hello world!"
-        if: github.event.event_type == "cloudsmith_event"
+        run: echo {{ github.event.event_type }}
