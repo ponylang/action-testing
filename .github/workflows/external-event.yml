@@ -12,3 +12,8 @@ jobs:
         if: github.event.action == 'cloudsmith_event'
         env:
           EVENT_TYPE: ${{ github.event.action }}
+      - name: echo it
+        run: echo "hey"
+        if: github.event.action == 'cloudsmith'
+        env:
+          EVENT_TYPE: ${{ github.event.action }}
