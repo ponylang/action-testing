@@ -9,3 +9,5 @@ jobs:
     steps:
       - name: echo it
         run: echo "hello world!"
+      - name: output the event
+        run: cat "${GITHUB_EVENT_PATH}"
