@@ -1,8 +1,6 @@
 name: External event
 
-on: 
-  repository_dispatch:
-    action: "cloudsmith_even"
+on: repository_dispatch
 
 jobs:
   hello-world:
