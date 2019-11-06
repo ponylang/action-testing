@@ -9,6 +9,6 @@ jobs:
     steps:
       - name: echo it
         run: echo "$EVENT_TYPE"
-        if: $EVENT_TYPE == "cloudsmith_event"
+        if: github.event.action == "cloudsmith_event"
         env:
           EVENT_TYPE: ${{ github.event.action }}
