@@ -17,3 +17,8 @@ jobs:
         if: github.event.client_payload.hello == 'world'
         env:
           EVENT_TYPE: ${{ github.event.action }}
+      - name: echo it
+        run: echo "$HELLO"
+        if: github.event.client_payload.hello == 'world'
+        env:
+          HELLO: ${{ github.event.client_payload.hello }}
