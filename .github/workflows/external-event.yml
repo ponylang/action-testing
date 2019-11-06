@@ -9,5 +9,4 @@ jobs:
     steps:
       - name: echo it
         run: echo "hello world!"
-      - name: output the event
-        run: cat "${GITHUB_EVENT_PATH}"
+        if: github.event.event_type == "cloudsmith_event"
