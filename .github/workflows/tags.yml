@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: What's the ref?
-        run: echo "ghr = ${GITHUB_REF}"
+        run: bash .ci-scripts/tags.bash
