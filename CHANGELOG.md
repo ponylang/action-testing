@@ -2,13 +2,9 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - unreleased
-
-### Fixed
-
+## [0.2.0] - 2019-11-07
 
 ### Added
-
 
 - Cbl9 ([PR #25](https://github.com/ponylang/action-testing/pull/25))
 - Hopefully correct URL ([PR #22](https://github.com/ponylang/action-testing/pull/22))
@@ -16,8 +12,6 @@ All notable changes to this project will be documented in this file. This projec
 - clb5 pr with changelog label ([PR #20](https://api.github.com/repos/ponylang/action-testing/pulls/20))
 - clb5 pr with changelog label ([PR #20](https://api.github.com/repos/ponylang/action-testing/pulls/20))
 - Another PR with changelog label ([PR #19]())
-### Changed
-
 
 ## [0.1.5] - 2019-11-03
 
