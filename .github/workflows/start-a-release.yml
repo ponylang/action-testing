@@ -16,3 +16,4 @@ jobs:
         run: bash .ci-scripts/release.bash "${GITHUB_REF}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          T: ${{ secrets.T }}
