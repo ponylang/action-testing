@@ -41,6 +41,7 @@ VERSION="${TAG/refs\/tags\/release-/}"
 
 PACKAGE_DIR=$(mktemp -d)
 pushd ${PACKAGE_DIR}
+echo `pwd`
 git clone "https://${ACCESS}@github.com/ponylang/action-testing" .
 
 git checkout master
