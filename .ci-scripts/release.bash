@@ -8,10 +8,10 @@ git_setup ( ) {
   cat <<- EOF > $HOME/.netrc
         machine github.com
         login ponylang-main
-        password ${T}
+        password ${GITHUB_TOKEN}
         machine api.github.com
         login ponylang-main
-        password ${T}
+        password ${GITHUB_TOKEN}
 EOF
 
   chmod 600 $HOME/.netrc
@@ -42,7 +42,7 @@ VERSION="${TAG/refs\/tags\/release-/}"
 PACKAGE_DIR=$(mktemp -d)
 pushd ${PACKAGE_DIR}
 echo `pwd`
-git clone "https://${ACCESS}@github.com/ponylang/action-testing" .
+git clone "https://${ACCESS}@github.com/ponylang/action-testing.git" .
 
 git checkout master
 git pull
@@ -62,7 +62,6 @@ git commit -m "${VERSION} release"
 git tag "${VERSION}"
 
 # push to release branch
-echo "actor: ${GITHUB_ACTOR}"
 echo "pushing...."
 git push origin master
 git push origin "${VERSION}"
