@@ -43,7 +43,6 @@ PACKAGE_DIR=$(mktemp -d)
 pushd ${PACKAGE_DIR}
 git clone "https://ponylang-main:${T}@github.com/ponylang/action-testing" .
 
-
 git checkout master
 git pull
 
@@ -64,7 +63,7 @@ git tag "${VERSION}"
 # push to release branch
 echo "actor: ${GITHUB_ACTOR}"
 echo "pushing...."
-git push master
+git push origin master
 git push origin "${VERSION}"
 
 # release body
