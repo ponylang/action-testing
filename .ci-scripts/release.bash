@@ -18,6 +18,7 @@ EOF
 
   git config --global user.name 'Ponylang Main Bot'
   git config --global user.email 'ponylang.main@gmail.com'
+  git config --global push.default simple
 }
 
 # Gather expected arguments.
@@ -34,6 +35,7 @@ VERSION="${TAG/refs\/tags\/release-/}"
 git_setup
 
 git checkout master
+git pull
 
 # update VERSION
 echo "${VERSION}" > VERSION
@@ -50,7 +52,7 @@ git commit -m "${VERSION} release"
 git tag "${VERSION}"
 
 # push to release branch
-git push origin master
+git push master
 git push origin "${VERSION}"
 
 # release body
