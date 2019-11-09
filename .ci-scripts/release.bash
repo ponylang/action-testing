@@ -42,8 +42,7 @@ VERSION="${TAG/refs\/tags\/release-/}"
 #PACKAGE_DIR=$(mktemp -d)
 #pushd ${PACKAGE_DIR}
 #echo `pwd`
-#git clone "https://${ACCESS}@github.com/ponylang/action-testing.git" .
-PUSH_TO="https://${ACCESS}@github.com/ponylang/action-testing.git"
+PUSH_TO="https://${ACCESS}@github.com/${GITHUB_REPOSITORY}.git"
 
 git checkout master
 git pull
