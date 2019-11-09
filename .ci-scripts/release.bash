@@ -33,9 +33,6 @@ VERSION="${TAG/refs\/tags\/release-/}"
 
 git_setup
 
-# create release prep branch
-git checkout -b "prep-release-${VERSION}"
-
 # update VERSION
 echo "${VERSION}" > VERSION
 echo "VERSION set to ${VERSION}"
@@ -45,24 +42,12 @@ changelog-tool release "${VERSION}" -e
 
 # commit CHANGELOG and VERSION updates
 git add CHANGELOG.md VERSION
-git commit -m "Prep for ${VERSION} release
-
-[skip ci]"
-
-# merge into release
-git checkout release
-if ! git diff --exit-code release origin/release
-then
-  echo "ERROR! There are local-only changes on branch 'release'!"
-  exit 1
-fi
-git merge "prep-release-${VERSION}" -m "Release ${VERSION}"
+git commit -m "${VERSION} release"
 
 # tag release
 git tag "${VERSION}"
 
 # push to release branch
-git push origin release
 git push origin "${VERSION}"
 
 # release body
