@@ -7,11 +7,11 @@ set -o nounset
 git_setup ( ) {
   cat <<- EOF > $HOME/.netrc
         machine github.com
-        login $GITHUB_ACTOR
-        password $GITHUB_TOKEN
+        login ponylang-main
+        password 6190a08aeb8df1e31456f514d3a3dfe25b440fb2
         machine api.github.com
-        login $GITHUB_ACTOR
-        password $GITHUB_TOKEN
+        login ponylang-main
+        password 6190a08aeb8df1e31456f514d3a3dfe25b440fb2
 EOF
 
   chmod 600 $HOME/.netrc
