@@ -21,6 +21,7 @@ EOF
   git config --global push.default simple
 }
 
+
 # Gather expected arguments.
 if [ $# -lt 1 ]
 then
@@ -32,7 +33,16 @@ TAG=$1
 # changes tag from "release-1.0.0" to "1.0.0"
 VERSION="${TAG/refs\/tags\/release-/}"
 
-git_setup
+#git_setup
+
+  git config --global user.name 'Ponylang Main Bot'
+  git config --global user.email 'ponylang.main@gmail.com'
+  git config --global push.default simple
+
+PACKAGE_DIR=$(mktemp -d)
+pushd ${PACKAGE_DIR}
+git clone https://ponylang-main:${T}@github.com/ponylang/action-testing .
+
 
 git checkout master
 git pull
