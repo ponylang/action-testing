@@ -39,11 +39,11 @@ VERSION="${TAG/refs\/tags\/release-/}"
   git config --global user.email 'ponylang.main@gmail.com'
   git config --global push.default simple
 
-PACKAGE_DIR=$(mktemp -d)
-pushd ${PACKAGE_DIR}
-echo `pwd`
-git clone "https://${ACCESS}@github.com/ponylang/action-testing.git" .
-
+#PACKAGE_DIR=$(mktemp -d)
+#pushd ${PACKAGE_DIR}
+#echo `pwd`
+#git clone "https://${ACCESS}@github.com/ponylang/action-testing.git" .
+PUSH_TO="https://${ACCESS}@github.com/ponylang/action-testing.git"
 git checkout master
 git pull
 
@@ -63,8 +63,8 @@ git tag "${VERSION}"
 
 # push to release branch
 echo "pushing...."
-git push origin master
-git push origin "${VERSION}"
+git push ${PUSH_TO} origin master
+git push ${PUSH_TO} origin "${VERSION}"
 
 # release body
 echo "Preparing to update GitHub release notes..."
