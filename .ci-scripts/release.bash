@@ -8,10 +8,10 @@ git_setup ( ) {
   cat <<- EOF > $HOME/.netrc
         machine github.com
         login ponylang-main
-        password 6190a08aeb8df1e31456f514d3a3dfe25b440fb2
+        password 0e7a1430a606316a9e5ba8729cc119721ced2857
         machine api.github.com
         login ponylang-main
-        password 6190a08aeb8df1e31456f514d3a3dfe25b440fb2
+        password 0e7a1430a606316a9e5ba8729cc119721ced2857
 EOF
 
   chmod 600 $HOME/.netrc
