@@ -33,6 +33,8 @@ VERSION="${TAG/refs\/tags\/release-/}"
 
 git_setup
 
+git checkout master
+
 # update VERSION
 echo "${VERSION}" > VERSION
 echo "VERSION set to ${VERSION}"
@@ -48,7 +50,7 @@ git commit -m "${VERSION} release"
 git tag "${VERSION}"
 
 # push to release branch
-git push origin master
+git push master
 git push origin "${VERSION}"
 
 # release body
