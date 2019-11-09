@@ -63,7 +63,7 @@ git tag "${VERSION}"
 
 # push to release branch
 echo "pushing...."
-git push ${PUSH_TO} origin master
+git push ${PUSH_TO} master
 git push ${PUSH_TO} origin "${VERSION}"
 
 # release body
