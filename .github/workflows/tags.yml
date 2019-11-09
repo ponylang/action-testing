@@ -2,7 +2,8 @@ name: Tag testing
 
 on:
   push:
-    tags: release-*.*.*
+    tags:
+      - \d+.\d+.\d+
 
 jobs:
   github-ref:
