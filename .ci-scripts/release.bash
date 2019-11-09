@@ -52,6 +52,8 @@ git commit -m "${VERSION} release"
 git tag "${VERSION}"
 
 # push to release branch
+echo "actor: ${GITHUB_ACTOR}"
+echo "pushing...."
 git push master
 git push origin "${VERSION}"
 
