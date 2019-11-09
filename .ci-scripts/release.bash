@@ -44,6 +44,7 @@ VERSION="${TAG/refs\/tags\/release-/}"
 #echo `pwd`
 #git clone "https://${ACCESS}@github.com/ponylang/action-testing.git" .
 PUSH_TO="https://${ACCESS}@github.com/ponylang/action-testing.git"
+
 git checkout master
 git pull
 
@@ -64,7 +65,7 @@ git tag "${VERSION}"
 # push to release branch
 echo "pushing...."
 git push ${PUSH_TO} master
-git push ${PUSH_TO} origin "${VERSION}"
+git push ${PUSH_TO} "${VERSION}"
 
 # release body
 echo "Preparing to update GitHub release notes..."
