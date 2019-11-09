@@ -7,11 +7,11 @@ set -o nounset
 git_setup ( ) {
   cat <<- EOF > $HOME/.netrc
         machine github.com
-        login ponylang-main
-        password 6190a08aeb8df1e31456f514d3a3dfe25b440fb2
+        login $GITHUB_ACTOR
+        password $GITHUB_TOKEN
         machine api.github.com
-        login ponylang-main
-        password 6190a08aeb8df1e31456f514d3a3dfe25b440fb2
+        login $GITHUB_ACTOR
+        password $GITHUB_TOKEN
 EOF
 
   chmod 600 $HOME/.netrc
@@ -48,6 +48,7 @@ git commit -m "${VERSION} release"
 git tag "${VERSION}"
 
 # push to release branch
+git push origin master
 git push origin "${VERSION}"
 
 # release body
