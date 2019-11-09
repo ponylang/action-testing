@@ -85,17 +85,5 @@ else
   exit 1
 fi
 
-# update CHANGELOG for new entries
-git checkout master
-git merge "prep-release-${VERSION}"
-changelog-tool unreleased -e
-
-# commit changelog and push to master
-git add CHANGELOG.md
-git commit -m "Add unreleased section to CHANGELOG post ${VERSION} release prep
-
-[skip ci]"
-git push origin master
-
 # delete release-VERSION tag
 git push --delete origin "release-${VERSION}"
