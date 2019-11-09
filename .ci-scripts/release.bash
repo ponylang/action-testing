@@ -102,4 +102,4 @@ else
 fi
 
 # delete release-VERSION tag
-git push --delete origin "release-${VERSION}"
+git push --delete ${PUSH_TO} "release-${VERSION}"
