@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file. This projec
 ### Added
 
 - A change ([PR #31](https://github.com/ponylang/action-testing/pull/31))
+- Add an entry ([PR #36](https://github.com/ponylang/action-testing/pull/36))
 
 ### Changed
 
