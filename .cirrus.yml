@@ -6,6 +6,7 @@ task:
 
   test_script:
     - echo "always"
+    - echo "If there is a tag, it is $CIRRUS_TAG"
 
 task:
   container:
