@@ -19,4 +19,4 @@ task:
     - echo "release style tag only"
     - echo "tag is $CIRRUS_TAG"
 
-  only_if: $CIRRUS_TAG =~ '/\d+\.\d+\.\d+/'
+  only_if: $CIRRUS_TAG =~ '^\d+\.\d+\.\d+$'
