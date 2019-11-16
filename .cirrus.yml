@@ -19,4 +19,4 @@ task:
     - echo "release style tag only"
     - echo "tag is $CIRRUS_TAG"
 
-  only_if: $CIRRUS_TAG =~ '/0\.5\.3/'
+  only_if: $CIRRUS_TAG =~ '0\.5\.4'
