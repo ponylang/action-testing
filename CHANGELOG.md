@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Added
 
+- $PATH test ([PR #41](https://github.com/ponylang/action-testing/pull/41))
 
 ### Changed
 
