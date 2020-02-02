@@ -44,7 +44,7 @@ VERSION="${TAG/refs\/tags\/release-/}"
 #echo `pwd`
 PUSH_TO="https://${ACCESS}@github.com/${GITHUB_REPOSITORY}.git"
 
-git checkout master
+git checkout release
 git pull
 
 # update VERSION
@@ -63,7 +63,7 @@ git tag "${VERSION}"
 
 # push to release branch
 echo "pushing...."
-git push ${PUSH_TO} master
+git push ${PUSH_TO} release
 git push ${PUSH_TO} "${VERSION}"
 
 # release body
