@@ -12,4 +12,4 @@ jobs:
       - name: Prompt for release notes
         uses: ponylang/release-notes-reminder-bot-action@initial
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          API_CREDENTIALS: "${{ secrets.GITHUB_ACTOR }}:${{ secrets.GITHUB_TOKEN }}"
