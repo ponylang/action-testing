@@ -1,0 +1,15 @@
+name: Labelled event
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  changelog-bot:
+    runs-on: ubuntu-latest
+    name: Update CHANGELOG.md
+    steps:
+      - name: Log event
+        run: echo "$EVENT"
+        env:
+          EVENT: ${{ toJson(github.event) }}
