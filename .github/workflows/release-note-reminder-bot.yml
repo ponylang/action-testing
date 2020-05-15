@@ -1,0 +1,15 @@
+name: Release Notes Reminder Bot
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  release-note-reminder-bot:
+    runs-on: ubuntu-latest
+    name: Prompt for release notes
+    steps:
+      - name: Prompt for release notes
+        uses: ponylang/release-notes-reminder@initial
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
