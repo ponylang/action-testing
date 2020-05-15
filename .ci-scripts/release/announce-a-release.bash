@@ -77,14 +77,40 @@ git config --global push.default simple
 
 PUSH_TO="https://${RELEASE_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
+### this doesn't account for master changing commit, assumes we are HEAD
+# or can otherwise push without issue. that shouldl error out without issue.
+# leaving us to restart from a different HEAD commit
+git checkout master
+git pull
+
 # Extract version from tag reference
 # Tag ref version: "refs/tags/announce-1.0.0"
 # Version: "1.0.0"
 VERSION="${GITHUB_REF/refs\/tags\/announce-/}"
 
+# Twiddle the release notes
+#
+# Rename the release notes file
+echo -e "\e[34mgRenaming next-release.md to ${VERSION}.md\e[0m"
+git mv .release-notes/next-release.md .release-notes/${VERSION}.md
+
+# Add next-release notes file
+echo -e "\e[34mgRenaming next-release.md to ${VERSION}.md\e[0m"
+touch .release-notes/next-release.md
+
+git add .release-notes/*
+git commit -m "Version release notes for ${VERSION}"
+
+
 # Prepare release notes
 echo -e "\e[34mPreparing to update GitHub release notes...\e[0m"
-body=$(changelog-tool get "${VERSION}")
+echo -e "\e[34mGetting intro text from .release-notes/${VERSION}.md\e[0m"
+intro=$(cat .release-notes/${VERSION}.md)
+
+echo -e "\e[34mGetting CHANGELOG information for ${VERSION}\e[0m"
+changelog=$(changelog-tool get "${VERSION}")
+
+body="${intro}\n\n${changelog}\n"
 
 jsontemplate="
 {
