@@ -7,7 +7,7 @@ on:
 jobs:
   changelog-bot:
     runs-on: ubuntu-latest
-    name: Update CHANGELOG.md
+    name: Log label event
     steps:
       - name: Log event
         run: echo "$EVENT"
