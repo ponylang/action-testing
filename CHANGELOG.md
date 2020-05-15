@@ -2,18 +2,12 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - unreleased
-
-### Fixed
-
+## [0.12.0] - 2020-05-15
 
 ### Added
 
 - $PATH test ([PR #41](https://github.com/ponylang/action-testing/pull/41))
 - " test ([PR #42](https://github.com/ponylang/action-testing/pull/42))
-
-### Changed
-
 
 ## [0.6.1] - 2019-11-21
 
