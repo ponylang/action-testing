@@ -2,17 +2,11 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - unreleased
+## [0.14.5] - 2020-05-16
 
 ### Fixed
 
 - Not my fault
-
-### Added
-
-
-### Changed
-
 
 ## [0.14.4] - 2020-05-16
 
