@@ -13,7 +13,9 @@ jobs:
       image: ponylang/shared-docker-ci-release:20191107
     steps:
       - uses: actions/checkout@v1
-      - name: Trigger release announcement
-        run: bash .ci-scripts/release/trigger-release-announcement.bash
+      - name: Trigger
+        uses: ponylang/release-bot-action@master
+        with:
+          step: trigger-release-announcement
         env:
           RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
