@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Changed
 
+- Release process tooling
 
 ## [0.13.0] - 2020-05-15
 
