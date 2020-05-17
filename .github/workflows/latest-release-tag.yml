@@ -13,11 +13,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Tag
         run: |
-          git checkout master
-          git pull
           git tag --force latest-release
-          echo ${TOKEN}
-          echo ${GITHUB_REPOSITORY}
-          git push --force-with-lease "https://${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" latest-release
+          git push --force "https://${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" latest-release
         env:
           TOKEN: ${{ secrets.RELEASE_TOKEN }}
