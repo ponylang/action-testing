@@ -14,4 +14,4 @@ jobs:
       - name: Tag
         run: |
           git tag --force latest-release
-          git push origin latest-release
+          git push "https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" latest-release
