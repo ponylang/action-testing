@@ -20,4 +20,4 @@ jobs:
           echo ${GITHUB_REPOSITORY}
           git push --force-with-lease "https://${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" latest-release
         env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.RELEASE_TOKEN }}
