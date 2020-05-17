@@ -16,6 +16,6 @@ jobs:
           git checkout master
           git pull
           git tag --force latest-release
-          git push "https://${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" latest-release
+          git push --force "https://${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" latest-release
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
