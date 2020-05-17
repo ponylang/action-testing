@@ -5,12 +5,13 @@ on:
     branches:
       - master
 
-update-latest-release-tag:
-  name: Update latest-release tag
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v1
-    - name: Tag
-      run: |
-        git tag --force latest-release
-        git push origin latest-release
+jobs:
+  update-latest-release-tag:
+    name: Update latest-release tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Tag
+        run: |
+          git tag --force latest-release
+          git push origin latest-release
