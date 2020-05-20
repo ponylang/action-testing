@@ -1,0 +1,14 @@
+name: Log events to master
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  changelog-bot:
+    runs-on: ubuntu-latest
+    name: Log events to master
+    steps:
+      - name: Log
+        run: cat ${GITHUB_EVENT_PATH}
