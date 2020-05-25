@@ -1,6 +1,0 @@
-## Hello
-
-Note
-
-More note
-
