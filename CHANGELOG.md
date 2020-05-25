@@ -9,11 +9,46 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Added
 
-- $PATH test ([PR #41](https://github.com/ponylang/action-testing/pull/41))
-- " test ([PR #42](https://github.com/ponylang/action-testing/pull/42))
 
 ### Changed
 
+
+## [0.14.5] - 2020-05-16
+
+### Fixed
+
+- Not my fault
+
+## [0.14.4] - 2020-05-16
+
+### Fixed
+
+- Really fixed. I swear.
+
+## [0.14.3] - 2020-05-16
+
+### Fixed
+
+- Got that release process working
+
+## [0.14.2] - 2020-05-16
+
+### Changed
+
+- Release process tooling
+
+## [0.13.0] - 2020-05-15
+
+### Added
+
+- A new changelog entry
+
+## [0.12.0] - 2020-05-15
+
+### Added
+
+- $PATH test ([PR #41](https://github.com/ponylang/action-testing/pull/41))
+- " test ([PR #42](https://github.com/ponylang/action-testing/pull/42))
 
 ## [0.6.1] - 2019-11-21
 

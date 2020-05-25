@@ -1,20 +1,21 @@
-name: Start a release
+name: Release
 
 on:
   push:
-    tags: release-*.*.*
+    tags:
+      - \d+.\d+.\d+
 
 jobs:
-  start-a-release:
-    name: Start a release
+  trigger-release-announcement:
+    name: Trigger release announcement
     runs-on: ubuntu-latest
     container:
       image: ponylang/shared-docker-ci-release:20191107
     steps:
       - uses: actions/checkout@v1
-      - name: Start
+      - name: Trigger
         uses: ponylang/release-bot-action@master
         with:
-          step: start-a-release
+          step: trigger-release-announcement
         env:
           RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}

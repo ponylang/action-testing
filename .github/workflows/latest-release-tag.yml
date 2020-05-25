@@ -1,0 +1,19 @@
+name: Latest release tag
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update-latest-release-tag:
+    name: Update latest-release tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Tag
+        run: |
+          git tag --force latest-release
+          git push --force "https://${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" latest-release
+        env:
+          TOKEN: ${{ secrets.RELEASE_TOKEN }}
