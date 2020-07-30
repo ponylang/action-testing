@@ -1,0 +1,14 @@
+name: issue-automation
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  automate-issues-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: initial labeling
+        uses: andymckay/labeler@467347716a3bdbca7f277cb6cd5fa9c5205c5412
+        with:
+          add-labels: "good first issue"
