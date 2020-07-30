@@ -1,4 +1,4 @@
 ---
-labels: good first issue
+labels: bug
 ---
 hello
