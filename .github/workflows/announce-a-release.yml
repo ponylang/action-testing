@@ -8,15 +8,15 @@ jobs:
   announce-a-release:
     name: Announce a release
     runs-on: ubuntu-latest
-    container:
-      image: ponylang/shared-docker-ci-release:20191107
     steps:
       - uses: actions/checkout@v1
       - name: Announce
-        uses: ponylang/release-bot-action@seantallen/8
+        uses: ponylang/release-bot-action@0.2.0
         with:
           step: announce-a-release
+          git_user_name: "Ponylang Main Bot"
+          git_user_email: "ponylang.main@gmail.com"
         env:
-          ASSET_NAME: "Action Testing"
+          ASSET_NAME: "Action testing"
           RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           ZULIP_TOKEN: ${{ secrets.ZULIP_TOKEN }}
