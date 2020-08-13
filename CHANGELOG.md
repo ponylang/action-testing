@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Added
 
+- Bold Philadelphia change ([PR #104](https://github.com/ponylang/action-testing/pull/104))
 
 ### Changed
 
