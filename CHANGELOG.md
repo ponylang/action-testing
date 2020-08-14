@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file. This projec
 
 - Something big ([PR #109](https://github.com/ponylang/action-testing/pull/109))
 - Something big ([PR #109](https://github.com/ponylang/action-testing/pull/109))
+- Test ([PR #110](https://github.com/ponylang/action-testing/pull/110))
 
 ### Changed
 
