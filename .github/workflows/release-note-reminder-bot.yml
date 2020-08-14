@@ -10,6 +10,6 @@ jobs:
     name: Prompt for release notes
     steps:
       - name: Prompt for release notes
-        uses: ponylang/release-notes-reminder-bot-action@seantallen/python
+        uses: ponylang/release-notes-reminder-bot-action@seantallen/2
         env:
            API_CREDENTIALS: ${{ secrets.RELEASE_TOKEN }}
