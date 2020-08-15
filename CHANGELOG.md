@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file. This projec
 - Test ([PR #110](https://github.com/ponylang/action-testing/pull/110))
 - Test ([PR #111](https://github.com/ponylang/action-testing/pull/111))
 - Test ([PR #112](https://github.com/ponylang/action-testing/pull/112))
+- Test ([PR #114](https://github.com/ponylang/action-testing/pull/114))
 
 ### Changed
 
