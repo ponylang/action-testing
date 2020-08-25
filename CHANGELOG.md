@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Added
 
+- Foo ([PR #123](https://github.com/ponylang/action-testing/pull/123))
 
 ### Changed
 
