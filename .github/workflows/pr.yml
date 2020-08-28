@@ -27,4 +27,4 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Error time!
-        run: bash foo/error-out.bash
+        run: python3 a.py
