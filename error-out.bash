@@ -2,4 +2,4 @@
 
 echo "::error::We didn't have the proper ENVs set"
 
-echo "::warning::This is a warning"
+echo "::warning file=error-out.bash, line=5::This is a warning"
