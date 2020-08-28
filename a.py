@@ -8,5 +8,5 @@ frameinfo = getframeinfo(currentframe())
 
 print(os.path.realpath(frameinfo.filename), frameinfo.lineno)
 
-print("::error file=" + os.path.realpath(frameinfo.filename) + ",line=" + frameinfo.lineno + "::Error here!")
+print("::error file=" + os.path.realpath(frameinfo.filename) + ",line=" + str(frameinfo.lineno) + "::Error here!")
 
