@@ -11,8 +11,3 @@ def print_error(message, frame=currentframe()):
 print("hi")
 print_error("O no! error on line 12")
 print_error("And another!")
-#print(os.path.realpath(frameinfo.filename), frameinfo.lineno)
-#
-#print("::error file=" + os.path.realpath(frameinfo.filename) + ",line=" + str(frameinfo.lineno) + "::Error here!")
-#
-#print("error file=" + os.path.realpath(frameinfo.filename) + ",line=" + str(frameinfo.lineno))
