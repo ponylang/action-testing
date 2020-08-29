@@ -12,4 +12,4 @@ jobs:
       - name: Prompt for release notes
         uses: ponylang/release-notes-reminder-bot-action@forked-repos
         env:
-           API_CREDENTIALS: ponylang-main:c20e8f010d795dd3ab3c3e099e1d46766a3321bf
+           API_CREDENTIALS: c20e8f010d795dd3ab3c3e099e1d46766a3321bf
