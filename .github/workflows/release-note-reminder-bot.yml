@@ -10,6 +10,6 @@ jobs:
     name: Prompt for release notes
     steps:
       - name: Prompt for release notes
-        uses: ponylang/release-notes-reminder-bot-action@forked-repos
+        uses: ponylang/release-notes-reminder-bot-action@master
         env:
            API_CREDENTIALS: ${{ secrets.PONYLANG_MAIN_API_TOKEN}}
