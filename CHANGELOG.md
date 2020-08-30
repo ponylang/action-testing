@@ -2,17 +2,11 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - unreleased
-
-### Fixed
-
+## [0.18.0] - 2020-08-30
 
 ### Added
 
 - Foo ([PR #123](https://github.com/ponylang/action-testing/pull/123))
-
-### Changed
-
 
 ## [0.17.0] - 2020-08-22
 
