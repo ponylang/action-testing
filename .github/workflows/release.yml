@@ -18,6 +18,18 @@ jobs:
         env:
           API_CREDENTIALS: ${{ secrets.GITHUB_TOKEN }}
 
+  build-library-documentation:
+    runs-on: ubuntu-latest
+    name: Build library documentation
+    steps:
+      - name: Build
+        uses: ponylang/library-documentation-action@initial
+        with:
+          library_name: "appdirs"
+          docs_build_dir: "build/appdirs-docs"
+          git_user_name: "Ponylang Main Bot"
+          git_user_email: "ponylang.main@gmail.com"
+
   trigger-release-announcement:
     name: Trigger release announcement
     runs-on: ubuntu-latest
