@@ -22,6 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Build library documentation
     steps:
+      - uses: actions/checkout@v1
       - name: Build
         uses: ponylang/library-documentation-action@initial
         with:
