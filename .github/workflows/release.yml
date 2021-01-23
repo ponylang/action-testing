@@ -33,7 +33,10 @@ jobs:
   trigger-release-announcement:
     name: Trigger release announcement
     runs-on: ubuntu-latest
-    needs: [update-version-in-readme-examples]
+    needs:
+      - update-version-in-readme-examples
+      - build-library-documentation
+
     steps:
       - uses: actions/checkout@v1
       - name: Trigger
