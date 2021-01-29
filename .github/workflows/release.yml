@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Build
-        uses: ponylang/library-documentation-action@0.1.1
+        uses: ponylang/library-documentation-action@0.1.2
         with:
           library_name: "appdirs"
           site_url: "https://ponylang.github.io/action-testing/"
