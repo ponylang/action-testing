@@ -8,5 +8,8 @@
       "locator": "github.com/ponylang/regex.git",
       "version": "1.0.0"
     }
-  ]
+  ],
+  "info": {
+    "version": "0.31.0"
+  }
 }
