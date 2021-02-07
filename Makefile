@@ -1,6 +1,6 @@
 TAG := docker.pkg.github.com/ponylang/action-testing/test:latest
 
-PACKAGE := glob
+PACKAGE := http
 GET_DEPENDENCIES_WITH := corral fetch
 CLEAN_DEPENDENCIES_WITH := corral clean
 COMPILE_WITH := corral run -- ponyc
@@ -37,7 +37,7 @@ push:
 $(docs_dir): $(BUILD_DIR) $(SOURCE_FILES)
 	rm -rf $(docs_dir)
 	$(GET_DEPENDENCIES_WITH)
-	$(PONYC) --docs --pass=docs --output build $(SRC_DIR)
+	$(PONYC) --docs-public --pass=docs --output build $(SRC_DIR)
 
 docs: $(docs_dir)
 
