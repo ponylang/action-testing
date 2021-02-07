@@ -4,7 +4,7 @@ This repo exists to test out various CI related actions before they start operat
 
 <!--
 
-ponylang/action-testing@0.31.2
+ponylang/action-testing@0.32.1
 
 -->
 
