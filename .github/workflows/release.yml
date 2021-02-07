@@ -24,11 +24,11 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Build
-        uses: ponylang/library-documentation-action@0.1.2
+        uses: ponylang/library-documentation-action@issue-13
         with:
-          library_name: "appdirs"
+          library_name: "glob"
           site_url: "https://ponylang.github.io/action-testing/"
-          docs_build_dir: "build/appdirs-docs"
+          docs_build_dir: "build/glob-docs"
           git_user_name: "Ponylang Main Bot"
           git_user_email: "ponylang.main@gmail.com"
         env:
