@@ -2,7 +2,7 @@
   "deps": [
     {
       "locator": "github.com/ponylang/net_ssl.git",
-      "version": "1.0.0"
+      "version": "master"
     },
     {
       "locator": "github.com/ponylang/regex.git",
