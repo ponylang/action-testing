@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Added
 
+- Does anything break on PR with branch rename? ([PR #134](https://github.com/ponylang/action-testing/pull/134))
 
 ### Changed
 
