@@ -26,9 +26,9 @@ jobs:
       - name: Build
         uses: ponylang/library-documentation-action@issue-13
         with:
-          library_name: "glob"
+          library_name: "http"
           site_url: "https://ponylang.github.io/action-testing/"
-          docs_build_dir: "build/glob-docs"
+          docs_build_dir: "build/http-docs"
           git_user_name: "Ponylang Main Bot"
           git_user_email: "ponylang.main@gmail.com"
         env:
