@@ -2,17 +2,11 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - unreleased
-
-### Fixed
-
+## [0.32.1] - 2021-02-07
 
 ### Added
 
 - Does anything break on PR with branch rename? ([PR #134](https://github.com/ponylang/action-testing/pull/134))
-
-### Changed
-
 
 ## [0.31.2] - 2021-02-07
 
