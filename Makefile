@@ -37,7 +37,7 @@ push:
 $(docs_dir): $(BUILD_DIR) $(SOURCE_FILES)
 	rm -rf $(docs_dir)
 	$(GET_DEPENDENCIES_WITH)
-	$(PONYC) --docs-public --pass=docs --output build $(SRC_DIR)
+	$(PONYC) --pass=docs --output build $(SRC_DIR)
 
 docs: $(docs_dir)
 
