@@ -11,7 +11,7 @@ corral add github.com/ponylang/action-testing --version 0.34.0
 
 other stuff
 
-corral add github.com/ponylang/action-testing --version 0.34.0
+corral add github.com/ponylang/action-testing -v 0.34.0
 
 -->
 
