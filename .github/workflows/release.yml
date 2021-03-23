@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Build
-        uses: ponylang/library-documentation-action@0.1.4
+        uses: trundle/library-documentation-action@deploy_keys
         with:
           library_name: "http"
           site_url: "https://ponylang.github.io/action-testing/"
