@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Build
-        uses: docker://ponylang/library-documentation-action:0.1.2
+        uses: docker://ponylang/library-documentation-action:0.1.6
         with:
           library_name: "http"
           site_url: "https://ponylang.github.io/action-testing/"
