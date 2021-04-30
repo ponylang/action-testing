@@ -13,6 +13,7 @@ jobs:
       - name: Start
         uses: ponylang/release-bot-action@test-run
         with:
+          step: start-a-release
           git_user_name: "Ponylang Main Bot"
           git_user_email: "ponylang.main@gmail.com"
         env:
