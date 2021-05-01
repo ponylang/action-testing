@@ -11,9 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Start
-        uses: ponylang/release-bot-action@test-run
+        uses: ponylang/release-bot-action@require-entrypoint
         with:
-          step: start-a-release
+          entrypoint: scripts/start-a-release.bash
           git_user_name: "Ponylang Main Bot"
           git_user_email: "ponylang.main@gmail.com"
         env:

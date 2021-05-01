@@ -11,9 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Announce
-        uses: ponylang/release-bot-action@test-run
+        uses: ponylang/release-bot-action@require-entrypoint
         with:
-          step: announce-a-release
+          entrypoit: scripts/announce-a-release.bash
           git_user_name: "Ponylang Main Bot"
           git_user_email: "ponylang.main@gmail.com"
         env:
