@@ -42,12 +42,13 @@ jobs:
       - build-library-documentation
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+        with:
+          ref: "main"
+          token: ${{ secrets.RELEASE_TOKEN }}
       - name: Trigger
-        uses: ponylang/release-bot-action@require-entrypoint
+        uses: ponylang/release-bot-action@checkout-v2
         with:
           entrypoint: trigger-release-announcement.bash
           git_user_name: "Ponylang Main Bot"
           git_user_email: "ponylang.main@gmail.com"
-        env:
-          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}

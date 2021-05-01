@@ -9,12 +9,13 @@ jobs:
     name: Start a release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+        with:
+          ref: "main"
+          token: ${{ secrets.RELEASE_TOKEN }}
       - name: Start
-        uses: ponylang/release-bot-action@require-entrypoint
+        uses: ponylang/release-bot-action@checkout-v2
         with:
           entrypoint: start-a-release.bash
           git_user_name: "Ponylang Main Bot"
           git_user_email: "ponylang.main@gmail.com"
-        env:
-          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
