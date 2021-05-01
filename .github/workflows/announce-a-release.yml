@@ -13,7 +13,7 @@ jobs:
       - name: Announce
         uses: ponylang/release-bot-action@require-entrypoint
         with:
-          entrypoint: /announce-a-release.bash
+          entrypoint: announce-a-release.bash
           git_user_name: "Ponylang Main Bot"
           git_user_email: "ponylang.main@gmail.com"
         env:
