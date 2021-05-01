@@ -5,13 +5,13 @@ This repo exists to test out various CI related actions before they start operat
 
 <!--
 
-ponylang/action-testing@0.37.1
+ponylang/action-testing@0.38.3
 
-corral add github.com/ponylang/action-testing.git --version 0.37.1
+corral add github.com/ponylang/action-testing.git --version 0.38.3
 
 other stuff
 
-corral add github.com/ponylang/action-testing.git -v 0.37.1
+corral add github.com/ponylang/action-testing.git -v 0.38.3
 
 -->
 
