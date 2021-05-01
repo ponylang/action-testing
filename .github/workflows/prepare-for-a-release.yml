@@ -1,0 +1,39 @@
+name: Prepare for a release
+
+on:
+  push:
+    tags: release-\d+.\d+.\d+
+
+jobs:
+  prepare-for-release:
+    name: Prepare for a release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: "main"
+          token: ${{ secrets.RELEASE_TOKEN }}
+      - name: Update CHANGELOG.md
+        uses: ponylang/release-bot-action@split-start-a-release
+        with:
+          entrypoint: update-changelog-for-release.bash
+          git_user_name: "Ponylang Main Bot"
+          git_user_email: "ponylang.main@gmail.com"
+      - name: Update VERSION
+        uses: ponylang/release-bot-action@split-start-a-release
+        with:
+          entrypoint: update-version-in-VERSION.bash
+          git_user_name: "Ponylang Main Bot"
+          git_user_email: "ponylang.main@gmail.com"
+      - name: Update corral.json
+        uses: ponylang/release-bot-action@split-start-a-release
+        with:
+          entrypoint: update-version-in-corral-json.bash
+          git_user_name: "Ponylang Main Bot"
+          git_user_email: "ponylang.main@gmail.com"
+      - name: Trigger artifact creation
+        uses: ponylang/release-bot-action@split-start-a-release
+        with:
+          entrypoint: trigger-artifact-creation.bash
+          git_user_name: "Ponylang Main Bot"
+          git_user_email: "ponylang.main@gmail.com"

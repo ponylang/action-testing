@@ -14,7 +14,7 @@ jobs:
           ref: "main"
           token: ${{ secrets.RELEASE_TOKEN }}
       - name: Announce
-        uses: ponylang/release-bot-action@checkout-v2
+        uses: ponylang/release-bot-action@prepare-for-a-release
         with:
           entrypoint: announce-a-release.bash
           git_user_name: "Ponylang Main Bot"
