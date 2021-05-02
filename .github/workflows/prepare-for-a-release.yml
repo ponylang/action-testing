@@ -56,12 +56,6 @@ jobs:
           entrypoint: trigger-artifact-creation.bash
           git_user_name: "Ponylang Main Bot"
           git_user_email: "ponylang.main@gmail.com"
-      - name: Delete release tag
-        uses: ponylang/release-bot-action@split-start-a-release-missed
-        with:
-          entrypoint: delete-release-tag.bash
-          git_user_name: "Ponylang Main Bot"
-          git_user_email: "ponylang.main@gmail.com"
 
   # all cleanup tags that should happen after tagging for release should happen
   # in the post-tagging job. examples of things you might do:
