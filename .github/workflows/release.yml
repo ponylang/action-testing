@@ -6,18 +6,6 @@ on:
       - \d+.\d+.\d+
 
 jobs:
-  update-version-in-readme-examples:
-    runs-on: ubuntu-latest
-    name: Update version in README examples
-    steps:
-      - name: Update version in README examples
-        uses: docker://ponylang/readme-version-updater-action:0.3.1
-        with:
-          git_user_name: "Ponylang Main Bot"
-          git_user_email: "ponylang.main@gmail.com"
-        env:
-          API_CREDENTIALS: ${{ secrets.GITHUB_TOKEN }}
-
   build-library-documentation:
     runs-on: ubuntu-latest
     name: Build library documentation
@@ -47,7 +35,7 @@ jobs:
           ref: "main"
           token: ${{ secrets.RELEASE_TOKEN }}
       - name: Trigger
-        uses: ponylang/release-bot-action@split-start-a-release-missed
+        uses: ponylang/release-bot-action@readme-version-updater
         with:
           entrypoint: trigger-release-announcement.bash
           git_user_name: "Ponylang Main Bot"

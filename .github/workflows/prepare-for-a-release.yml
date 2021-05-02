@@ -17,20 +17,26 @@ jobs:
         with:
           ref: "main"
           token: ${{ secrets.RELEASE_TOKEN }}
+      - name: Update version in README
+        uses: ponylang/release-bot-action@readme-version-updater
+        with:
+          entrypoint: update-version-in-README.py
+          git_user_name: "Ponylang Main Bot"
+          git_user_email: "ponylang.main@gmail.com"
       - name: Update CHANGELOG.md
-        uses: ponylang/release-bot-action@split-start-a-release-missed
+        uses: ponylang/release-bot-action@readme-version-updater
         with:
           entrypoint: update-changelog-for-release.bash
           git_user_name: "Ponylang Main Bot"
           git_user_email: "ponylang.main@gmail.com"
       - name: Update VERSION
-        uses: ponylang/release-bot-action@split-start-a-release-missed
+        uses: ponylang/release-bot-action@readme-version-updater
         with:
           entrypoint: update-version-in-VERSION.bash
           git_user_name: "Ponylang Main Bot"
           git_user_email: "ponylang.main@gmail.com"
       - name: Update corral.json
-        uses: ponylang/release-bot-action@split-start-a-release-missed
+        uses: ponylang/release-bot-action@readme-version-updater
         with:
           entrypoint: update-version-in-corral-json.bash
           git_user_name: "Ponylang Main Bot"
@@ -51,7 +57,7 @@ jobs:
           ref: "main"
           token: ${{ secrets.RELEASE_TOKEN }}
       - name: Trigger artifact creation
-        uses: ponylang/release-bot-action@split-start-a-release-missed
+        uses: ponylang/release-bot-action@readme-version-updater
         with:
           entrypoint: trigger-artifact-creation.bash
           git_user_name: "Ponylang Main Bot"
@@ -75,7 +81,7 @@ jobs:
           ref: "main"
           token: ${{ secrets.RELEASE_TOKEN }}
       - name: Add "unreleased" section to CHANGELOG.md
-        uses: ponylang/release-bot-action@split-start-a-release-missed
+        uses: ponylang/release-bot-action@readme-version-updater
         with:
           entrypoint: add-unreleased-section-to-changelog.bash
           git_user_name: "Ponylang Main Bot"
