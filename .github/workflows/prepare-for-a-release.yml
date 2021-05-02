@@ -42,7 +42,7 @@ jobs:
   tag-release:
     name: Tag the release
     needs:
-      - prepare-for-release
+      - pre-tagging
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main
