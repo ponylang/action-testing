@@ -14,7 +14,7 @@ jobs:
           ref: "main"
           token: ${{ secrets.RELEASE_TOKEN }}
       - name: Announce
-        uses: ponylang/release-bot-action@split-start-a-release
+        uses: ponylang/release-bot-action@split-start-a-release-missed
         with:
           entrypoint: announce-a-release.bash
           git_user_name: "Ponylang Main Bot"
