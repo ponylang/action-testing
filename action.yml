@@ -1,0 +1,5 @@
+name: 'Action testing'
+description: 'Description'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

@@ -34,7 +34,7 @@ jobs:
           ref: "main"
           token: ${{ secrets.RELEASE_TOKEN }}
       - name: Trigger
-        uses: ponylang/release-bot-action@readme-version-updater
+        uses: ponylang/release-bot-action@action-yml-version
         with:
           entrypoint: trigger-release-announcement.bash
           git_user_name: "Ponylang Main Bot"
