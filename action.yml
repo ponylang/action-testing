@@ -3,5 +3,3 @@ name: Action testing
 runs:
   image: Dockerfile
   using: docker
-sting:0.43.1
-  using: docker
