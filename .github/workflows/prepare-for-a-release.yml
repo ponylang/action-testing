@@ -92,3 +92,9 @@ jobs:
           entrypoint: add-unreleased-section-to-changelog.bash
           git_user_name: "Ponylang Main Bot"
           git_user_email: "ponylang.main@gmail.com"
+      - name: Set action to run using Dockerfile
+        uses: ponylang/release-bot-action@action-yml-version
+        with:
+          entrypoint: update-action-to-use-dockerfile-to-run-action.py
+          git_user_name: "Ponylang Main Bot"
+          git_user_email: "ponylang.main@gmail.com"
