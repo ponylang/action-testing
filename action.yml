@@ -1,5 +1,5 @@
-name: 'Action testing'
-description: 'Description'
+description: Description
+name: Action testing
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  image: docker://ponylang/action-testing:0.43.0
+  using: docker
