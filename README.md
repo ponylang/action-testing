@@ -3,6 +3,8 @@
 This repo exists to test out various CI related actions before they start operating in "real" repos.
 
 
+hello
+
 <!--
 
 ponylang/action-testing@0.44.2
