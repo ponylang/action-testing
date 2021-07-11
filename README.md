@@ -7,13 +7,13 @@ hello
 
 <!--
 
-ponylang/action-testing@0.48.0
+ponylang/action-testing@0.48.1
 
-corral add github.com/ponylang/action-testing.git --version 0.48.0
+corral add github.com/ponylang/action-testing.git --version 0.48.1
 
 other stuff
 
-corral add github.com/ponylang/action-testing.git -v 0.48.0
+corral add github.com/ponylang/action-testing.git -v 0.48.1
 
 -->
 
