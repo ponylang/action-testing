@@ -15,19 +15,19 @@ jobs:
           ref: "main"
           token: ${{ secrets.RELEASE_TOKEN }}
       - name: Release notes
-        uses: ponylang/release-bot-action@split-announce
+        uses: ponylang/release-bot-action@main
         with:
           entrypoint: publish-release-notes-to-github.bash
         env:
           RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
       - name: Zulip
-        uses: ponylang/release-bot-action@split-announce
+        uses: ponylang/release-bot-action@main
         with:
           entrypoint: send-announcement-to-pony-zulip.bash
         env:
           ZULIP_TOKEN: ${{ secrets.ZULIP_TOKEN }}
       - name: Last Week in Pony
-        uses: ponylang/release-bot-action@split-announce
+        uses: ponylang/release-bot-action@main
         with:
           entrypoint: add-announcement-to-last-week-in-pony.bash
         env:
@@ -45,13 +45,13 @@ jobs:
           ref: "main"
           token: ${{ secrets.RELEASE_TOKEN }}
       - name: Rotate release notes
-        uses: ponylang/release-bot-action@split-announce
+        uses: ponylang/release-bot-action@main
         with:
           entrypoint: rotate-release-notes.bash
           git_user_name: "Ponylang Main Bot"
           git_user_email: "ponylang.main@gmail.com"
       - name: Delete announcement trigger tag
-        uses: ponylang/release-bot-action@split-announce
+        uses: ponylang/release-bot-action@main
         with:
           entrypoint: delete-announcement-tag.bash
           git_user_name: "Ponylang Main Bot"
