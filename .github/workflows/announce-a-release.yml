@@ -5,21 +5,46 @@ on:
     tags: announce-\d+.\d+.\d+
 
 jobs:
-  announce-a-release:
-    name: Announce a release
+  announce:
+    name: Announcements
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Release notes
+        uses: ponylang/release-bot-action@split-announce
+        with:
+          entrypoint: publish-release-notes-to-github.bash
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+      - name: Zulip
+        uses: ponylang/release-bot-action@split-announce
+        with:
+          entrypoint: send-announcement-to-pony-zulip.bash
+          ZULIP_TOKEN: ${{ secrets.ZULIP_TOKEN }}
+      - name: Last Week in Pony
+        uses: ponylang/release-bot-action@split-announce
+        with:
+          entrypoint: add-announcement-to-last-week-in-pony.bash
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+
+  post-announcement:
+    name: Tasks to run after the release has been announced
+    needs:
+      - announce
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v2
         with:
           ref: "main"
           token: ${{ secrets.RELEASE_TOKEN }}
-      - name: Announce
-        uses: ponylang/release-bot-action@main
+      - name: Rotate release notes
+        uses: ponylang/release-bot-action@split-announce
         with:
-          entrypoint: announce-a-release.bash
+          entrypoint: rotate-release-notes.bash
           git_user_name: "Ponylang Main Bot"
           git_user_email: "ponylang.main@gmail.com"
-        env:
-          ASSET_NAME: "Action testing"
-          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-          ZULIP_TOKEN: ${{ secrets.ZULIP_TOKEN }}
+      - name: Delete announcement trigger tag
+        uses: ponylang/release-bot-action@split-announce
+        with:
+          entrypoint: delete-announcement-tag.bash
+          git_user_name: "Ponylang Main Bot"
+          git_user_email: "ponylang.main@gmail.com"
