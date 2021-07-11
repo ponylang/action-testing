@@ -13,16 +13,19 @@ jobs:
         uses: ponylang/release-bot-action@split-announce
         with:
           entrypoint: publish-release-notes-to-github.bash
+        env:
           RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
       - name: Zulip
         uses: ponylang/release-bot-action@split-announce
         with:
           entrypoint: send-announcement-to-pony-zulip.bash
+        env:
           ZULIP_TOKEN: ${{ secrets.ZULIP_TOKEN }}
       - name: Last Week in Pony
         uses: ponylang/release-bot-action@split-announce
         with:
           entrypoint: add-announcement-to-last-week-in-pony.bash
+        env:
           RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
 
   post-announcement:
