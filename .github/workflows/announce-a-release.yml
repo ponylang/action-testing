@@ -47,7 +47,7 @@ jobs:
       - name: Rotate release notes
         uses: ponylang/release-bot-action@all-python
         with:
-          entrypoint: rotate-release-notes.bash
+          entrypoint: rotate-release-notes.py
         env:
           GIT_USER_NAME: "Ponylang Main Bot"
           GIT_USER_EMAIL: "ponylang.main@gmail.com"
