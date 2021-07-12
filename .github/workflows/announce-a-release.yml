@@ -17,7 +17,7 @@ jobs:
       - name: Release notes
         uses: ponylang/release-bot-action@all-python
         with:
-          entrypoint: publish-release-notes-to-github.bash
+          entrypoint: publish-release-notes-to-github.py
         env:
           RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
       - name: Zulip
