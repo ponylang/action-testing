@@ -54,7 +54,7 @@ jobs:
       - name: Delete announcement trigger tag
         uses: ponylang/release-bot-action@all-python
         with:
-          entrypoint: delete-announcement-tag.bash
+          entrypoint: delete-announcement-tag.py
         env:
           GIT_USER_NAME: "Ponylang Main Bot"
           GIT_USER_EMAIL: "ponylang.main@gmail.com"
