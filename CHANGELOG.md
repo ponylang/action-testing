@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Changed
 
+- Stuff
 
 ## [0.49.0] - 2021-07-12
 
