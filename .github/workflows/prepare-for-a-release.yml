@@ -34,7 +34,7 @@ jobs:
       - name: Update CHANGELOG.md
         uses: ponylang/release-bot-action@all-python
         with:
-          entrypoint: update-changelog-for-release.bash
+          entrypoint: update-changelog-for-release.py
         env:
           GIT_USER_NAME: "Ponylang Main Bot"
           GIT_USER_EMAIL: "ponylang.main@gmail.com"
