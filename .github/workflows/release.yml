@@ -19,9 +19,9 @@ jobs:
           ref: "main"
           token: ${{ secrets.RELEASE_TOKEN }}
       - name: Validate CHANGELOG
-        uses: ponylang/release-bot-action@all-python
+        uses: ponylang/release-bot-action@no-py
         with:
-          entrypoint: pre-artefact-changelog-check.py
+          entrypoint: pre-artefact-changelog-check
 
   build-library-documentation:
     runs-on: ubuntu-latest
@@ -52,9 +52,9 @@ jobs:
           ref: "main"
           token: ${{ secrets.RELEASE_TOKEN }}
       - name: Trigger
-        uses: ponylang/release-bot-action@all-python
+        uses: ponylang/release-bot-action@no-py
         with:
-          entrypoint: trigger-release-announcement.py
+          entrypoint: trigger-release-announcement
         env:
           GIT_USER_NAME: "Ponylang Main Bot"
           GIT_USER_EMAIL: "ponylang.main@gmail.com"
