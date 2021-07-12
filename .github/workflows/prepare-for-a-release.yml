@@ -70,7 +70,7 @@ jobs:
       - name: Trigger artefact creation
         uses: ponylang/release-bot-action@all-python
         with:
-          entrypoint: trigger-artefact-creation.bash
+          entrypoint: trigger-artefact-creation.py
         env:
           GIT_USER_NAME: "Ponylang Main Bot"
           GIT_USER_EMAIL: "ponylang.main@gmail.com"
