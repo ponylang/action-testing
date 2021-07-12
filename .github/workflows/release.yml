@@ -21,7 +21,7 @@ jobs:
       - name: Validate CHANGELOG
         uses: ponylang/release-bot-action@all-python
         with:
-          entrypoint: pre-artefact-changelog-check.bash
+          entrypoint: pre-artefact-changelog-check.py
 
   build-library-documentation:
     runs-on: ubuntu-latest
