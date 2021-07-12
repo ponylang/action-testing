@@ -95,7 +95,7 @@ jobs:
       - name: Add "unreleased" section to CHANGELOG.md
         uses: ponylang/release-bot-action@all-python
         with:
-          entrypoint: add-unreleased-section-to-changelog.bash
+          entrypoint: add-unreleased-section-to-changelog.py
         env:
           GIT_USER_NAME: "Ponylang Main Bot"
           GIT_USER_EMAIL: "ponylang.main@gmail.com"
