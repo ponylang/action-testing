@@ -54,7 +54,7 @@ jobs:
       - name: Trigger
         uses: ponylang/release-bot-action@all-python
         with:
-          entrypoint: trigger-release-announcement.bash
+          entrypoint: trigger-release-announcement.py
         env:
           GIT_USER_NAME: "Ponylang Main Bot"
           GIT_USER_EMAIL: "ponylang.main@gmail.com"
