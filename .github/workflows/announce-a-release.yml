@@ -23,9 +23,10 @@ jobs:
       - name: Zulip
         uses: ponylang/release-bot-action@all-python
         with:
-          entrypoint: send-announcement-to-pony-zulip.bash
+          entrypoint: send-announcement-to-pony-zulip.py
         env:
-          ZULIP_TOKEN: ${{ secrets.ZULIP_TOKEN }}
+          ZULIP_API_KEY: ${{ secrets.ZULIP_API_KEY }}
+          ZULIP_EMAIL: ${{ secrets.ZULIP_EMAIL }}
       - name: Last Week in Pony
         uses: ponylang/release-bot-action@all-python
         with:
