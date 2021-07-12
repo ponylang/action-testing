@@ -1,5 +1,5 @@
 description: Description
 name: Action testing
 runs:
-  image: Dockerfile
+  image: docker://ponylang/action-testing:0.50.0
   using: docker
