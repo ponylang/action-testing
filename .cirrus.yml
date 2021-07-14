@@ -7,3 +7,13 @@ task:
   test_script:
     - echo "always"
     - echo "If there is a tag, it is $CIRRUS_TAG"
+
+task:
+  container:
+    image: ponylang/ponyc-ci-x86-64-unknown-linux-musl-builder:20191105
+
+  name: "fails"
+
+  test_script:
+    - echo "time to fail"
+    - exit 1

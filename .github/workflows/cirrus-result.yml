@@ -1,0 +1,14 @@
+name: Receive results from CirrusCI
+
+on:
+  check_suite:
+    type: ['completed']
+
+jobs:
+  continue:
+    name: After Cirrus CI Failure
+    if: github.event.check_suite.app.name == 'Cirrus CI' && github.event.check_suite.conclusion == 'failure'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log incoming event
+        run: cat ${GITHUB_EVENT_PATH}
