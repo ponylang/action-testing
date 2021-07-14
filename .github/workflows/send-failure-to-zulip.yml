@@ -17,9 +17,8 @@ jobs:
           api-key: ${{ secrets.ZULIP_SCHEDULED_JOB_FAILURE_API_KEY }}
           email: ${{ secrets.ZULIP_SCHEDULED_JOB_FAILURE_EMAIL }}
           organization-url: 'https://ponylang.zulipchat.com/'
-          to: 'notifications'
-          type: 'stream'
-          topic: 'Scheduled job failure'
-          content: A scheduled job for ${{ GITHUB_REPOSITORY }} failed. See $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID for more information.
-
+          to: notifications
+          type: stream
+          topic: ${{ env.GITHUB_REPOSITORY }} Scheduled job failure
+          content: A scheduled job for ${{ env.GITHUB_REPOSITORY }} failed.
 
