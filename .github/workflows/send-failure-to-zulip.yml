@@ -20,6 +20,6 @@ jobs:
           to: notifications
           type: stream
           topic: ${{ github.repository }} scheduled job failure
-          content: A scheduled job for ${{ github.repository }} failed.See ${{ githug.server_url}}/${{ github.repository }}/actions/runs/${{ github.run_id }} for more information.
+          content: A scheduled job for ${{ github.repository }} failed.See ${{ github.server_url}}/${{ github.repository }}/actions/runs/${{ github.run_id }} for more information.
 
 
