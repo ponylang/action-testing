@@ -21,6 +21,10 @@ jobs:
           type: 'stream'
           topic: 'Scheduled job failure'
           content: |
-            A scheduled job for $GITHUB_REPOSITORY failed.
+            A scheduled job for $REPO failed.
 
-            See $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID for more information.
+            See $RUN_URL for more information.
+        env:
+          REPO: $GITHUB_REPOSITORY
+          RUN_URL: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+
