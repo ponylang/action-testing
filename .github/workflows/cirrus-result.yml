@@ -7,13 +7,13 @@ on:
 jobs:
   send-failure-notification-to-zulip:
     name: Send Cirrus CI failure to Zulip
-    if: github.event.check_run.app.name == 'Cirrus CI' && github.event.check_run.conclusion == 'failure' && toJson(github.event.check_run.pull_requests) == toJson('[]')
+    if: github.event.check_run.app.name == 'Cirrus CI' && github.event.check_run.conclusion == 'failure'
     runs-on: ubuntu-latest
     steps:
       - name: Log
         run: echo "$EVENT"
         env:
-          EVENT: ${{ toJson(github.event) }}
+          EVENT: ${{ toJson(github.event.check_run.pull_requests) }}
       - name: Send
         uses: zulip/github-actions-zulip@35d7ad8e98444f894dcfe1d4e17332581d28ebeb
         with:
