@@ -12,7 +12,7 @@ jobs:
         run: exit 1
       - name: Send alert on failure
         if: ${{ failure() }}
-        uses: zulip/github-actions-zulip@35d7ad8e98444f894dcfe1d4e17332581d28ebeb
+        uses: zulip/github-actions-zulip@main
         with:
           api-key: ${{ secrets.ZULIP_SCHEDULED_JOB_FAILURE_API_KEY }}
           email: ${{ secrets.ZULIP_SCHEDULED_JOB_FAILURE_EMAIL }}
