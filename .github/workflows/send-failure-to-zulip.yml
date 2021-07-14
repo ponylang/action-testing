@@ -19,6 +19,6 @@ jobs:
           organization-url: 'https://ponylang.zulipchat.com/'
           to: notifications
           type: stream
-          topic: ${{ env.GITHUB_REPOSITORY }} Scheduled job failure
-          content: A scheduled job for ${{ env.GITHUB_REPOSITORY }} failed.
+          topic: ${{ github.repository }} Scheduled job failure
+          content: A scheduled job for ${{ github.repository }} failed.
 
