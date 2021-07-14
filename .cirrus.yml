@@ -13,6 +13,7 @@ task:
     image: ponylang/ponyc-ci-x86-64-unknown-linux-musl-builder:20191105
 
   name: "fails"
+  only_if: $CIRRUS_PR != ''
 
   test_script:
     - echo "time to fail"
