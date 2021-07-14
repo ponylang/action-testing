@@ -12,7 +12,7 @@ jobs:
         run: exit 1
       - name: Send alert on failure
         if: ${{ failure() }}
-        uses: zulip/github-actions-zulip@main
+        uses: zulip/github-actions-zulip@35d7ad8e98444f894dcfe1d4e17332581d28ebeb
         with:
           api-key: ${{ secrets.ZULIP_SCHEDULED_JOB_FAILURE_API_KEY }}
           email: ${{ secrets.ZULIP_SCHEDULED_JOB_FAILURE_EMAIL }}
@@ -21,6 +21,6 @@ jobs:
           type: 'stream'
           topic: 'Scheduled job failure'
           content: |
-            A scheduled job for ${{ env.GITHUB_REPOSITORY }} failed.
+            A scheduled job for ${{ GITHUB_REPOSITORY }} failed.
 
-            See ${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY}}/actions/runs/${{ env.GITHUB_RUN_ID}} for more information.
+            See ${{ GITHUB_SERVER_URL }}/${{ GITHUB_REPOSITORY}}/actions/runs/${{ GITHUB_RUN_ID}} for more information.
