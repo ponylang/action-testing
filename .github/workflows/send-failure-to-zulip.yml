@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Will fail
         run: exit 1
+      - name: Won't fail
+        run: exit 0
       - name: Send alert on failure
         if: ${{ failure() }}
         uses: zulip/github-actions-zulip@35d7ad8e98444f894dcfe1d4e17332581d28ebeb
