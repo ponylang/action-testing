@@ -8,11 +8,11 @@ jobs:
     name: test
     runs-on: ubuntu-latest
     steps:
-      - name: Generate documentation and upload
+      - name: Will fail
         run: exit 1
       - name: Send alert on failure
         if: ${{ failure() }}
-        uses: zulip/github-actions-zulip@v0.1.2
+        uses: zulip/github-actions-zulip@main
         with:
           api-key: ${{ secrets.ZULIP_SCHEDULED_JOB_FAILURE_API_KEY }}
           email: ${{ secrets.ZULIP_SCHEDULED_JOB_FAILURE_EMAIL }}
