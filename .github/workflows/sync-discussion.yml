@@ -1,4 +1,4 @@
-name: Add discuss at sync label
+name: Add discuss during sync label
 
 on:
   issues:
