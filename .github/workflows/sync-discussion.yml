@@ -25,4 +25,4 @@ jobs:
       - name: Add sync label
         uses: andymckay/labeler@467347716a3bdbca7f277cb6cd5fa9c5205c5412
         with:
-          add-labels: "sync"
+          add-labels: "discuss at sync"
