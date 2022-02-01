@@ -1,4 +1,4 @@
-name: Sync discussion
+name: Add discuss at sync label
 
 on:
   issues:
@@ -19,10 +19,10 @@ on:
       - submitted
 
 jobs:
-  add-sync-label:
+  add-label:
     runs-on: ubuntu-latest
     steps:
-      - name: Add sync label
+      - name: Add "discuss during sync" label to active GH entity
         uses: andymckay/labeler@467347716a3bdbca7f277cb6cd5fa9c5205c5412
         with:
-          add-labels: "discuss at sync"
+          add-labels: "discuss during sync"

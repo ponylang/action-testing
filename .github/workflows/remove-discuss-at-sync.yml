@@ -1,4 +1,4 @@
-name: Remove discuss at sync
+name: Remove discuss at sync label
 
 on:
   issues:
