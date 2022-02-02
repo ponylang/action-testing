@@ -1,0 +1,12 @@
+name: PR Labeled
+
+on:
+  pull_request_target:
+    types: [labeled]
+
+jobs:
+  note-we-ran:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: echo "I was run!"

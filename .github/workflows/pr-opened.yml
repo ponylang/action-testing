@@ -1,0 +1,16 @@
+name: PR opened
+
+on:
+  pull_request_target:
+    types:
+      - opened
+
+jobs:
+  add-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add label
+        uses: andymckay/labeler@467347716a3bdbca7f277cb6cd5fa9c5205c5412
+        with:
+          github-token: ${{ secrets.PONYLANG_MAIN_API_TOKEN}}
+          add-labels: "good first issue"
