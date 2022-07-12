@@ -1,11 +1,17 @@
 use "pony_test"
-use "net"
-use "collections"
 use "buffered"
+use "collections"
+use "net"
 use "time"
 
-primitive PrivateTests is TestList
+actor \nodoc\ Main is TestList
+  new create(env: Env) => PonyTest(env, this)
+  new make() => None
+
   fun tag tests(test: PonyTest) =>
+    _ClientErrorHandlingTests.make().tests(test)
+    _ClientTests.make().tests(test)
+
     test(_Encode)
     test(_EncodeBad)
     test(_EncodeIPv6)
@@ -31,7 +37,9 @@ primitive PrivateTests is TestList
     test(_HTTPParserOneshotBodyTest)
     test(_HTTPParserStreamedBodyTest)
 
-class iso _Encode is UnitTest
+    test(_PayloadHeadersAreCaseInsensitive)
+
+class \nodoc\ iso _Encode is UnitTest
   fun name(): String => "http/URLEncode.encode"
 
   fun apply(h: TestHelper) ? =>
@@ -77,7 +85,7 @@ class iso _Encode is UnitTest
     h.assert_eq[String](":@/?", URLEncode.encode(":@/?", URLPartQuery)?)
     h.assert_eq[String](":@/?", URLEncode.encode(":@/?", URLPartFragment)?)
 
-class iso _EncodeBad is UnitTest
+class \nodoc\ iso _EncodeBad is UnitTest
   fun name(): String => "http/URLEncode.encode_bad"
 
   fun apply(h: TestHelper) =>
@@ -85,7 +93,7 @@ class iso _EncodeBad is UnitTest
     h.assert_error({() ? => URLEncode.encode("%xx", URLPartUser)? })
     h.assert_error({() ? => URLEncode.encode("%2", URLPartUser)? })
 
-class iso _EncodeIPv6 is UnitTest
+class \nodoc\ iso _EncodeIPv6 is UnitTest
   fun name(): String => "http/URLEncode.encode_ipv6"
 
   fun apply(h: TestHelper) ? =>
@@ -98,7 +106,7 @@ class iso _EncodeIPv6 is UnitTest
     h.assert_error({() ? => URLEncode.encode("[1", URLPartHost)? })
     h.assert_eq[String]("1%5D", URLEncode.encode("1]", URLPartHost)?)
 
-class iso _EncodeClean is UnitTest
+class \nodoc\ iso _EncodeClean is UnitTest
   fun name(): String => "http/URLEncode.encode_clean"
 
   fun apply(h: TestHelper) ? =>
@@ -107,7 +115,7 @@ class iso _EncodeClean is UnitTest
     h.assert_eq[String]("%2541", URLEncode.encode("%41", URLPartQuery, false)?)
     h.assert_eq[String]("%25", URLEncode.encode("%", URLPartQuery, false)?)
 
-class iso _Check is UnitTest
+class \nodoc\ iso _Check is UnitTest
   fun name(): String => "http/URLEncode.check"
 
   fun apply(h: TestHelper) =>
@@ -171,7 +179,7 @@ class iso _Check is UnitTest
     h.assert_eq[Bool](true, URLEncode.check(":@/?", URLPartQuery))
     h.assert_eq[Bool](true, URLEncode.check(":@/?", URLPartFragment))
 
-class iso _CheckBad is UnitTest
+class \nodoc\ iso _CheckBad is UnitTest
   fun name(): String => "http/URLEncode.check_bad"
 
   fun apply(h: TestHelper) =>
@@ -179,7 +187,7 @@ class iso _CheckBad is UnitTest
     h.assert_eq[Bool](false, URLEncode.check("%xx", URLPartUser))
     h.assert_eq[Bool](false, URLEncode.check("%2", URLPartUser))
 
-class iso _CheckScheme is UnitTest
+class \nodoc\ iso _CheckScheme is UnitTest
   fun name(): String => "http/URLEncode.check_scheme"
 
   fun apply(h: TestHelper) =>
@@ -188,7 +196,7 @@ class iso _CheckScheme is UnitTest
     h.assert_eq[Bool](false, URLEncode.check_scheme(":"))
     h.assert_eq[Bool](false, URLEncode.check_scheme("%41"))
 
-class iso _CheckIPv6 is UnitTest
+class \nodoc\ iso _CheckIPv6 is UnitTest
   fun name(): String => "http/URLEncode.check_ipv6"
 
   fun apply(h: TestHelper) =>
@@ -201,7 +209,7 @@ class iso _CheckIPv6 is UnitTest
     h.assert_eq[Bool](false, URLEncode.check("[1", URLPartHost))
     h.assert_eq[Bool](false, URLEncode.check("1]", URLPartHost))
 
-class iso _Decode is UnitTest
+class \nodoc\ iso _Decode is UnitTest
   fun name(): String => "http/URLEncode.decode"
 
   fun apply(h: TestHelper) ? =>
@@ -216,7 +224,7 @@ class iso _Decode is UnitTest
     h.assert_eq[String]("#<>[]{}|^ #<>[]{}|^ %",
       URLEncode.decode("#<>[]{}|^ %23%3C%3E%5B%5D%7B%7D%7C%5E%20%25")?)
 
-class iso _DecodeBad is UnitTest
+class \nodoc\ iso _DecodeBad is UnitTest
   fun name(): String => "http/URLEncode.decode_bad"
 
   fun apply(h: TestHelper) =>
@@ -224,7 +232,7 @@ class iso _DecodeBad is UnitTest
     h.assert_error({() ? => URLEncode.decode("%xx")? })
     h.assert_error({() ? => URLEncode.decode("%2")? })
 
-class iso _BuildBasic is UnitTest
+class \nodoc\ iso _BuildBasic is UnitTest
   fun name(): String => "http/URL.build_basic"
 
   fun apply(h: TestHelper) ? =>
@@ -247,7 +255,7 @@ class iso _BuildBasic is UnitTest
     _Test(h, URL.build("http://user@host")?,
       "http", "user", "", "host", 80, "/", "", "")
 
-class iso _BuildMissingParts is UnitTest
+class \nodoc\ iso _BuildMissingParts is UnitTest
   fun name(): String => "http/URL.build_missing_parts"
 
   fun apply(h: TestHelper) ? =>
@@ -275,7 +283,7 @@ class iso _BuildMissingParts is UnitTest
     _Test(h, URL.build("https://user@host.name?quer/y#fragment")?,
       "https", "user", "", "host.name", 443, "/", "quer/y", "fragment")
 
-class iso _BuildBad is UnitTest
+class \nodoc\ iso _BuildBad is UnitTest
   fun name(): String => "http/URL.build_bad"
 
   fun apply(h: TestHelper) =>
@@ -299,14 +307,14 @@ class iso _BuildBad is UnitTest
       URL.build("https://hostname/path%")?
     })
 
-class iso _BuildNoEncoding is UnitTest
+class \nodoc\ iso _BuildNoEncoding is UnitTest
   fun name(): String => "http/URL.build_no_encoding"
 
   fun apply(h: TestHelper) ? =>
     _Test(h, URL.build("https://host.name/path%32path", false)?,
       "https", "", "", "host.name", 443, "/path%2532path", "", "")
 
-class iso _Valid is UnitTest
+class \nodoc\ iso _Valid is UnitTest
   fun name(): String => "http/URL.valid"
 
   fun apply(h: TestHelper) ? =>
@@ -327,7 +335,7 @@ class iso _Valid is UnitTest
     _Test(h, URL.valid("http://user@host")?,
       "http", "user", "", "host", 80, "/", "", "")
 
-class iso _ToStringFun is UnitTest
+class \nodoc\ iso _ToStringFun is UnitTest
   fun name(): String => "http/URL.to_string"
 
   fun apply(h: TestHelper) ? =>
@@ -346,7 +354,7 @@ class iso _ToStringFun is UnitTest
     h.assert_eq[String]("http://host.name/path",
       URL.build("http://host.name:80/path")?.string())
 
-primitive _Test
+primitive \nodoc\ _Test
   fun apply(
     h: TestHelper,
     url: URL,
@@ -369,7 +377,7 @@ primitive _Test
     h.assert_eq[String](fragment, url.fragment)
 
 // Actor and classes to test the HTTPClient and modified _HTTPConnection.
-class _HTTPConnTestHandler is HTTPHandler
+class \nodoc\ _HTTPConnTestHandler is HTTPHandler
   var n_received: U32 = 0
   let h: TestHelper
 
@@ -384,7 +392,7 @@ class _HTTPConnTestHandler is HTTPHandler
   fun ref chunk(data: ByteSeq val) =>
     h.log("_HTTPConnTestHandler.chunk called")
 
-class val _HTTPConnTestHandlerFactory is HandlerFactory
+class \nodoc\ val _HTTPConnTestHandlerFactory is HandlerFactory
   let h: TestHelper
 
   new val create(h': TestHelper) =>
@@ -395,11 +403,11 @@ class val _HTTPConnTestHandlerFactory is HandlerFactory
     h.complete_action("client factory apply called")
     _HTTPConnTestHandler(h)
 
-class iso _HTTPConnTest is UnitTest
+class \nodoc\ iso _HTTPConnTest is UnitTest
   fun name(): String => "http/_HTTPConnection._new_conn"
   fun label(): String => "conn-fix"
 
-  fun ref apply(h: TestHelper) ? =>
+  fun ref apply(h: TestHelper) =>
     // Set expectations.
     h.expect_action("client factory apply called")
     h.expect_action("client handler create called")
@@ -421,12 +429,12 @@ class iso _HTTPConnTest is UnitTest
           let loops: USize = 2
           // let service: String val = "12345"
           h.log("received service: [" + service + "]")
-          let us = "http://localhost:" + service
+          let us: String = "http://localhost:" + service
           h.log("URL: " + us)
           let url = URL.build(us)?
           h.log("url.string()=" + url.string())
           let hf = _HTTPConnTestHandlerFactory(h)
-          client = recover iso HTTPClient(h.env.root as TCPConnectionAuth) end
+          client = recover iso HTTPClient(TCPConnectAuth(h.env.root)) end
 
           for _ in Range(0, loops) do
             let payload: Payload iso = Payload.request("GET", url)
@@ -444,7 +452,7 @@ class iso _HTTPConnTest is UnitTest
     // Start the fake server.
     h.dispose_when_done(
       TCPListener.ip4(
-        h.env.root as AmbientAuth,
+        TCPListenAuth(h.env.root),
         _FixedResponseHTTPServerNotify(
           h,
           {(p: String val) =>
@@ -469,7 +477,7 @@ class iso _HTTPConnTest is UnitTest
     // Start a long test for 5 seconds.
     h.long_test(5_000_000_000)
 
-primitive _FixedResponseHTTPServerNotify
+primitive \nodoc\ _FixedResponseHTTPServerNotify
   """
   Test http server that spits out fixed responses.
   apply returns a TCPListenNotify object.
@@ -569,7 +577,7 @@ primitive _FixedResponseHTTPServerNotify
       end // object
     end // recover
 
-class iso _HTTPParserNoBodyTest is UnitTest
+class \nodoc\ iso _HTTPParserNoBodyTest is UnitTest
   fun name(): String => "http/HTTPParser.NoBody"
   fun ref apply(h: TestHelper) =>
     let test_session =
@@ -612,7 +620,7 @@ class iso _HTTPParserNoBodyTest is UnitTest
     | ParseError => h.fail("parser failed to parse request")
     end
 
-class iso _HTTPParserOneshotBodyTest is UnitTest
+class \nodoc\ iso _HTTPParserOneshotBodyTest is UnitTest
   fun name(): String => "http/HTTPParser.OneshotBody"
   fun ref apply(h: TestHelper) =>
     let body = "custname=Pony+Mc+Ponyface&custtel=%2B490123456789&custemail=pony%40ponylang.org&size=large&topping=bacon&topping=cheese&topping=onion&delivery=&comments=This+is+a+stupid+test"
@@ -671,7 +679,7 @@ class iso _HTTPParserOneshotBodyTest is UnitTest
     | ParseError => h.fail("parser failed to parse request.")
     end
 
-class iso _HTTPParserStreamedBodyTest is UnitTest
+class \nodoc\ iso _HTTPParserStreamedBodyTest is UnitTest
   fun name(): String => "http/HTTPParser.StreamedBody"
   fun apply(h: TestHelper) =>
     let test_session =
@@ -707,3 +715,18 @@ class iso _HTTPParserStreamedBodyTest is UnitTest
     match parser.parse(reader)
     | ParseError => h.fail("parser failed to parse request.")
     end
+
+class \nodoc\ _PayloadHeadersAreCaseInsensitive is UnitTest
+  fun name(): String => "http/Payload.HeadersAreCaseInsensitive"
+  fun apply(h: TestHelper) ? =>
+    let url = URL.valid("https://example.com")?
+    let request = Payload.request(where url' = url)
+    let some_caps_header: String = recover val "Accept" end
+    let all_lower_header: String = some_caps_header.lower()
+    let all_upper_header: String = some_caps_header.upper()
+    let header_value = "text/plain"
+
+    request(some_caps_header) = header_value
+
+    h.assert_eq[String](header_value, request(all_lower_header)?)
+    h.assert_eq[String](header_value, request(all_upper_header)?)
