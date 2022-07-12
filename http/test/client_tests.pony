@@ -1,5 +1,5 @@
 use ".."
-use "ponytest"
+use "pony_test"
 use "net"
 
 primitive ClientTests is TestList
