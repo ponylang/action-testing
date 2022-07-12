@@ -34,7 +34,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/logo.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-ponylang-0.2.8">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-ponylang-0.2.8">
     
     
       
@@ -886,42 +886,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../http-Logger/" title="interface Logger" class="md-nav__link">
-      interface Logger
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../http-ServerNotify/" title="interface ServerNotify" class="md-nav__link">
-      interface ServerNotify
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../http-HTTPServer/" title="actor HTTPServer" class="md-nav__link">
-      actor HTTPServer
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../http-ChunkedTransfer/" title="primitive ChunkedTransfer" class="md-nav__link">
       primitive ChunkedTransfer
     </a>
@@ -994,8 +958,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../http-HTTPSession/" title="interface HTTPSession" class="md-nav__link">
-      interface HTTPSession
+    <a href="../http-HTTPSession/" title="trait HTTPSession" class="md-nav__link">
+      trait HTTPSession
     </a>
   </li>
 
@@ -1222,42 +1186,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../http-DiscardLog/" title="primitive DiscardLog" class="md-nav__link">
-      primitive DiscardLog
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../http-ContentsLog/" title="class ContentsLog" class="md-nav__link">
-      class ContentsLog
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../http-CommonLog/" title="class CommonLog" class="md-nav__link">
-      class CommonLog
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../http-HTTPClient/" title="class HTTPClient" class="md-nav__link">
       class HTTPClient
     </a>
@@ -1396,7 +1324,7 @@
                 
                 
                 <h1 id="httphandler">HTTPHandler<a class="headerlink" href="#httphandler" title="Permanent link">&para;</a></h1>
-<p><span class="source-link"><a href="../src/http/http_handler/#L55">[Source]</a></span></p>
+<p><span class="source-link"><a href="../src/http/http_handler/#L30">[Source]</a></span></p>
 <p>This is the interface through which HTTP messages are delivered <em>to</em>
 application code. On the server, this will be HTTP Requests (GET,
 HEAD, DELETE, POST, etc) sent from a client. On the client, this will
@@ -1415,7 +1343,7 @@ will be called at the appropriate time.</p>
 </code></pre>
 <h2 id="public-functions">Public Functions<a class="headerlink" href="#public-functions" title="Permanent link">&para;</a></h2>
 <h3 id="apply">apply<a class="headerlink" href="#apply" title="Permanent link">&para;</a></h3>
-<p><span class="source-link"><a href="../src/http/http_handler/#L74">[Source]</a></span></p>
+<p><span class="source-link"><a href="../src/http/http_handler/#L49">[Source]</a></span></p>
 <pre><code class="language-pony">fun ref apply(
   payload: Payload val)
 : Any tag
@@ -1430,7 +1358,7 @@ will be called at the appropriate time.</p>
 </ul>
 <hr />
 <h3 id="chunk">chunk<a class="headerlink" href="#chunk" title="Permanent link">&para;</a></h3>
-<p><span class="source-link"><a href="../src/http/http_handler/#L87">[Source]</a></span></p>
+<p><span class="source-link"><a href="../src/http/http_handler/#L62">[Source]</a></span></p>
 <p>Notification of incoming body data. The body belongs to the most
 recent <code>Payload</code> delivered by an <code>apply</code> notification.</p>
 <pre><code class="language-pony">fun ref chunk(
@@ -1447,7 +1375,7 @@ recent <code>Payload</code> delivered by an <code>apply</code> notification.</p>
 </ul>
 <hr />
 <h3 id="finished">finished<a class="headerlink" href="#finished" title="Permanent link">&para;</a></h3>
-<p><span class="source-link"><a href="../src/http/http_handler/#L93">[Source]</a></span></p>
+<p><span class="source-link"><a href="../src/http/http_handler/#L68">[Source]</a></span></p>
 <p>Notification that no more body chunks are coming. Delivery of this HTTP
 message is complete.</p>
 <pre><code class="language-pony">fun ref finished()
@@ -1459,7 +1387,7 @@ message is complete.</p>
 </ul>
 <hr />
 <h3 id="cancelled">cancelled<a class="headerlink" href="#cancelled" title="Permanent link">&para;</a></h3>
-<p><span class="source-link"><a href="../src/http/http_handler/#L99">[Source]</a></span></p>
+<p><span class="source-link"><a href="../src/http/http_handler/#L74">[Source]</a></span></p>
 <p>Notification that transferring the payload has been cancelled locally,
 e.g. by disposing the client, closing the server or manually cancelling a single request.</p>
 <pre><code class="language-pony">fun ref cancelled()
@@ -1471,7 +1399,7 @@ e.g. by disposing the client, closing the server or manually cancelling a single
 </ul>
 <hr />
 <h3 id="failed">failed<a class="headerlink" href="#failed" title="Permanent link">&para;</a></h3>
-<p><span class="source-link"><a href="../src/http/http_handler/#L105">[Source]</a></span></p>
+<p><span class="source-link"><a href="../src/http/http_handler/#L80">[Source]</a></span></p>
 <p>Notification about failure to transfer the payload
 (e.g. connection could not be established, authentication failed, connection was closed prematurely, ...)</p>
 <pre><code class="language-pony">fun ref failed(
@@ -1488,7 +1416,7 @@ e.g. by disposing the client, closing the server or manually cancelling a single
 </ul>
 <hr />
 <h3 id="throttled">throttled<a class="headerlink" href="#throttled" title="Permanent link">&para;</a></h3>
-<p><span class="source-link"><a href="../src/http/http_handler/#L111">[Source]</a></span></p>
+<p><span class="source-link"><a href="../src/http/http_handler/#L86">[Source]</a></span></p>
 <p>Notification that the session temporarily can not accept more data.</p>
 <pre><code class="language-pony">fun ref throttled()
 : None val
@@ -1499,7 +1427,7 @@ e.g. by disposing the client, closing the server or manually cancelling a single
 </ul>
 <hr />
 <h3 id="unthrottled">unthrottled<a class="headerlink" href="#unthrottled" title="Permanent link">&para;</a></h3>
-<p><span class="source-link"><a href="../src/http/http_handler/#L116">[Source]</a></span></p>
+<p><span class="source-link"><a href="../src/http/http_handler/#L91">[Source]</a></span></p>
 <p>Notification that the session can resume accepting data.</p>
 <pre><code class="language-pony">fun ref unthrottled()
 : None val
@@ -1510,7 +1438,7 @@ e.g. by disposing the client, closing the server or manually cancelling a single
 </ul>
 <hr />
 <h3 id="need_body">need_body<a class="headerlink" href="#need_body" title="Permanent link">&para;</a></h3>
-<p><span class="source-link"><a href="../src/http/http_handler/#L121">[Source]</a></span></p>
+<p><span class="source-link"><a href="../src/http/http_handler/#L96">[Source]</a></span></p>
 <p>Notification that the HTTPSession is ready for Stream or Chunked
 body data.</p>
 <pre><code class="language-pony">fun ref need_body()
@@ -1594,7 +1522,7 @@ body data.</p>
     
     <script src="../assets/javascripts/application.cb37bb38.js"></script>
       
-      <script>app.initialize({version:"1.1.2",url:{base:".."}})</script>
+      <script>app.initialize({version:"1.3.0",url:{base:".."}})</script>
       
     
     

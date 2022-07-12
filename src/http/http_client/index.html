@@ -11,7 +11,7 @@
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
       
-        <link rel="canonical" href="https://ponylang.github.io/action-testing/src/http/contents_log/">
+        <link rel="canonical" href="https://ponylang.github.io/action-testing/src/http/http_client/">
       
       
       
@@ -34,11 +34,11 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../assets/images/logo.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-ponylang-0.2.8">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-ponylang-0.2.8">
     
     
       
-        <title>Contents log - http</title>
+        <title>Http client - http</title>
       
     
     
@@ -94,7 +94,7 @@
                 http
               </span>
               <span class="md-header-nav__topic">
-                Contents log
+                Http client
               </span>
             
           
@@ -880,42 +880,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../http-Logger/" title="interface Logger" class="md-nav__link">
-      interface Logger
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../../http-ServerNotify/" title="interface ServerNotify" class="md-nav__link">
-      interface ServerNotify
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../../http-HTTPServer/" title="actor HTTPServer" class="md-nav__link">
-      actor HTTPServer
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../../../http-ChunkedTransfer/" title="primitive ChunkedTransfer" class="md-nav__link">
       primitive ChunkedTransfer
     </a>
@@ -988,8 +952,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../http-HTTPSession/" title="interface HTTPSession" class="md-nav__link">
-      interface HTTPSession
+    <a href="../../../http-HTTPSession/" title="trait HTTPSession" class="md-nav__link">
+      trait HTTPSession
     </a>
   </li>
 
@@ -1096,42 +1060,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../http-DiscardLog/" title="primitive DiscardLog" class="md-nav__link">
-      primitive DiscardLog
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../../http-ContentsLog/" title="class ContentsLog" class="md-nav__link">
-      class ContentsLog
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../../http-CommonLog/" title="class CommonLog" class="md-nav__link">
-      class CommonLog
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../../../http-HTTPClient/" title="class HTTPClient" class="md-nav__link">
       class HTTPClient
     </a>
@@ -1156,74 +1084,164 @@
               
                 
                 
-                  <h1>Contents log</h1>
+                  <h1>Http client</h1>
                 
-                <pre><code class="language-pony-full-source">class ContentsLog is Logger
-  &quot;&quot;&quot;
-  Logs the contents of HTTP requests and responses.
-  &quot;&quot;&quot;
-  let _out: OutStream
+                <pre><code class="language-pony-full-source">use &quot;collections&quot;
+use &quot;net&quot;
+use &quot;net_ssl&quot;
 
-  new val create(out: OutStream) =&gt;
-    _out = out
+class HTTPClient
+  &quot;&quot;&quot;
+  Manages a group of HTTP connections on behalf of a client application.
+  A client should create one instance of this class.
+  &quot;&quot;&quot;
+  let _auth: TCPConnectAuth
+  let _sslctx: SSLContext
+  let _pipeline: Bool
+  let _keepalive_timeout_secs: U32
+  let _sessions: Map[_HostService, _ClientConnection] = _sessions.create()
 
-  fun val apply(
-    ip: String,
-    body_size: USize,
-    request: Payload val,
-    response: Payload val)
+  new create(
+    auth: TCPConnectAuth,
+    sslctx: (SSLContext | None) = None,
+    pipeline: Bool = true,
+    keepalive_timeout_secs: U32 = 0)
   =&gt;
-    let list = recover Array[ByteSeq] end
+    &quot;&quot;&quot;
+    Create the context in which all HTTP sessions will originate.
 
-    list.push(&quot;REQUEST\n&quot;)
-    list.push(request.method)
-    list.push(&quot; &quot;)
-    list.push(request.url.path)
+    Parameters:
+    - keepalive_timeout_secs: Use TCP Keepalive and check if the other side is down
+                              every `keepalive_timeout_secs` seconds.
+    &quot;&quot;&quot;
+    _auth = auth
 
-    if request.url.query.size() &gt; 0 then
-      list.push(&quot;?&quot;)
-      list.push(request.url.query)
+    _sslctx = try
+      sslctx as SSLContext
+    else
+      recover
+        let newssl = SSLContext
+        newssl.set_client_verify(false)
+        newssl
+        end
     end
 
-    if request.url.fragment.size() &gt; 0 then
-      list.push(&quot;#&quot;)
-      list.push(request.url.fragment)
+    _pipeline = pipeline
+    _keepalive_timeout_secs = keepalive_timeout_secs
+
+  fun ref apply(
+    request: Payload trn,
+    handlermaker: HandlerFactory val)
+    : Payload val ?
+  =&gt;
+    &quot;&quot;&quot;
+    Schedule a request on an HTTP session. If a new connection is created,
+    a new instance of the application's Receive Handler will be created
+    for it. A `val` copy of the `Payload` is returned, and it can not be
+    modified after this point.
+    This is useful in Stream and Chunked transfer modes, so that the
+    application can follow up with calls to `Client.send_body`.
+    &quot;&quot;&quot;
+    let session = _get_session(request.url, handlermaker)?
+    let mode = request.transfer_mode
+    request.session = session
+    let valrequest: Payload val = consume request
+    session(valrequest)
+    valrequest
+
+  fun ref dispose() =&gt;
+    &quot;&quot;&quot;
+    Disposes the sessions and cancels all pending requests.
+    &quot;&quot;&quot;
+    for s in _sessions.values() do
+      s.dispose()
+    end
+    _sessions.clear()
+
+/*
+  fun ref cancel(request: Payload val) =&gt;
+    &quot;&quot;&quot;
+    Cancel a request.
+    &quot;&quot;&quot;
+    match request.session
+    | let s _ClientConnection tag =&gt; s.cancel(request)
+    end
+*/
+
+  fun ref _get_session(
+    url: URL,
+    handlermaker: HandlerFactory val)
+    : _ClientConnection ?
+  =&gt;
+    &quot;&quot;&quot;
+    Gets or creates an HTTP Session for the given URL. If a new session
+    is created, a new Receive Handler instance is created too.
+    &quot;&quot;&quot;
+    let hs = _HostService(url.scheme, url.host, url.port.string())
+
+    try
+      // Look for an existing session
+      _sessions(hs)?
+    else
+      // or create a new session of the correct type.
+      let session =
+        match url.scheme
+        | &quot;http&quot; =&gt;
+          _ClientConnection(_auth, hs.host, hs.service,
+            None, _pipeline, _keepalive_timeout_secs, handlermaker)
+        | &quot;https&quot; =&gt;
+          _ClientConnection(_auth, hs.host, hs.service,
+            _sslctx, _pipeline, _keepalive_timeout_secs, handlermaker)
+        else
+          error
+        end
+      _sessions(hs) = session
+      session
     end
 
-    list.push(&quot; &quot;)
-    list.push(request.proto)
-    list.push(&quot;\n&quot;)
+  fun ref send_body(data: ByteSeq val, session: HTTPSession) =&gt;
+    session.write(data)
 
-    for (k, v) in request.headers().pairs() do
-      list.push(k)
-      list.push(&quot;: &quot;)
-      list.push(v)
-      list.push(&quot;\n&quot;)
+class _SessionGuard
+  &quot;&quot;&quot;
+  Enforces the rule that an 'unsafe' request monopolizes the
+  HTTPSession. A 'safe' request does not modify a resource state on
+  the server, and such a request has no body.
+  &quot;&quot;&quot;
+  let _session: HTTPSession
+  let _sent: List[Payload val] = List[Payload val]
+  var _lastreqsafe: Bool = true
+  var current: (Payload val | None) = None
+
+  new iso create(session: HTTPSession) =&gt;
+    _session = session
+
+  fun ref submit(request: Payload val) ? =&gt;
+    &quot;&quot;&quot;
+    Accept a request for transmission to the server. This will fail if
+    the request is not &quot;safe&quot; and the HTTPSession is busy. Due to the
+    possibly large body size, these requests can not be queued.
+    &quot;&quot;&quot;
+    let thisreqsafe = request.is_safe()
+
+    // If the channel is idle, just send this request.
+    if _sent.size() == 0 then
+      _lastreqsafe = thisreqsafe
+      current = request
+      _session(request)
+      return
     end
 
-    try list.append(request.body()?) end
-
-    list.push(&quot;\n&quot;)
-
-    list.push(&quot;RESPONSE\n&quot;)
-    list.push(response.proto)
-    list.push(&quot; &quot;)
-    list.push(response.status.string())
-    list.push(&quot; &quot;)
-    list.push(response.method)
-    list.push(&quot;\n&quot;)
-
-    for (k, v) in response.headers().pairs() do
-      list.push(k)
-      list.push(&quot;: &quot;)
-      list.push(v)
-      list.push(&quot;\n&quot;)
+    // Channel is not idle. But we can send it anyway if
+    // both the last request and this one are safe.
+    if _lastreqsafe and thisreqsafe then
+      _sent.push(request)
+      _session(request)
+      return
     end
 
-    try list.append(response.body()?) end
-
-    list.push(&quot;\n\n&quot;)
-    _out.writev(consume list)
+    // Channel can not accept another request now.
+    error
 
 </code></pre>
                 
@@ -1264,7 +1282,7 @@
     
     <script src="../../../assets/javascripts/application.cb37bb38.js"></script>
       
-      <script>app.initialize({version:"1.1.2",url:{base:"../../.."}})</script>
+      <script>app.initialize({version:"1.3.0",url:{base:"../../.."}})</script>
       
     
     
