@@ -5,6 +5,15 @@ on:
     tags:
       - \d+.\d+.\d+
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "update-documentation"
+  cancel-in-progress: true
+
 jobs:
   # validation to assure that we should in fact continue with the release should
   # be done here. the primary reason for this step is to verify that the release
@@ -28,18 +37,27 @@ jobs:
     name: Build library documentation
     needs:
       - pre-artefact-creation
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v2
-      - name: Build
-        uses: docker://ponylang/library-documentation-action:release
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Generate documentation
+        uses: ponylang/library-documentation-action@via-github-action
         with:
-          library_name: "http"
           site_url: "https://ponylang.github.io/action-testing/"
+          library_name: "http"
           docs_build_dir: "build/http-docs"
-          git_user_name: "Ponylang Main Bot"
-          git_user_email: "ponylang.main@gmail.com"
-        env:
-          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+      - name: Setup Pages
+        uses: actions/configure-pages@v2
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: 'build/http-docs/site/'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
 
   trigger-release-announcement:
     name: Trigger release announcement
