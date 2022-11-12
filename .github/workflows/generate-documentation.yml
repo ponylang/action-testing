@@ -24,7 +24,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Generate documentation
-        uses: ghcr.io/ponylang/library-documentation-action-v2:latest
+        uses: docker://ghcr.io/ponylang/library-documentation-action-v2:latest
         with:
           site_url: "https://ponylang.github.io/action-testing/"
           library_name: "http"
