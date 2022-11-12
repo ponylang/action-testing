@@ -31,4 +31,12 @@ jobs:
           INPUT_SITE_URL: "https://ponylang.github.io/action-testing/"
           INPUT_LIBRARY_NAME: "http"
           INPUT_DOCS_BUILD_DIR: "build/http-docs"
-
+      - name: Setup Pages
+        uses: actions/configure-pages@v2
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: 'build/http-docs/site/'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
