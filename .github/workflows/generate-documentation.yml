@@ -30,7 +30,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Generate documentation
-        uses: docker://ponylang/library-documentation-action-v2@latest
+        uses: docker://ponylang/library-documentation-action-v2:latest
         with:
           site_url: "https://ponylang.github.io/action-testing/"
           library_name: "http"
