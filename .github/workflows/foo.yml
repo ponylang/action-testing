@@ -27,4 +27,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Generate documentation
         run: /entrypoint.py
+        env:
+          INPUT_SITE_URL: "https://ponylang.github.io/action-testing/"
+          INPUT_LIBRARY_NAME: "http"
+          INPUT_DOCS_BUILD_DIR: "build/http-docs"
 
