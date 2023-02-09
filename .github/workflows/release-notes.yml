@@ -16,7 +16,7 @@ jobs:
     name: Update release notes
     steps:
       - name: Update
-        uses: ponylang/release-notes-bot-action@issue-37
+        uses: docker://ponylang/release-notes-bot-action:0.3.6
         with:
           GIT_USER_NAME: "Ponylang Main Bot"
           GIT_USER_EMAIL: "ponylang.main@gmail.com"
