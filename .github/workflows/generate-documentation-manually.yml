@@ -1,4 +1,4 @@
-name: Foo
+name: Generate Documentation Manually
 
 on:
   workflow_dispatch
