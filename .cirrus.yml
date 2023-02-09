@@ -2,9 +2,9 @@ task:
   container:
     image: ponylang/ponyc-ci-x86-64-unknown-linux-musl-builder:20191105
 
-  name: "fails"
+  name: "passes"
   only_if: $CIRRUS_PR != ''
 
   test_script:
-    - echo "time to fail"
-    - exit 1
+    - echo "time to pass"
+    - exit 0
