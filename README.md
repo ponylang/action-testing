@@ -24,3 +24,4 @@ This is a simple change. It had another.
 foo
 foo
 foo
+foo
