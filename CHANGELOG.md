@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file. This projec
 ### Changed
 
 - Test new changelog action version ([PR #159](https://github.com/ponylang/action-testing/pull/159))
+- Foo ([PR #160](https://github.com/ponylang/action-testing/pull/160))
 
 ## [0.60.0] - 2022-01-01
 
