@@ -7,12 +7,12 @@ jobs:
     name: Lint entrypoint.py
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2s
         id: checkout
       - name: pylint
         id: pylint
         run: make pylint
-       - name: Alert on failure
+      - name: Alert on failure
         if: ${{ !cancelled() }}
         uses: zulip/github-actions-zulip/send-message@b62d5a0e48a4d984ea4fce5dd65ba691963d4db4
         with:
@@ -22,7 +22,7 @@ jobs:
           to: notifications
           type: stream
           topic: ${{ github.repository }} scheduled job failure
-          content: ${{ github.server_url}}/${{ github.repository }}/actions/runs/${{ github.run_id }} failed.   S
+          content: ${{ github.server_url}}/${{ github.repository }}/actions/runs/${{ github.run_id }} failed.
 
   verify-changelog:
     name: Verify CHANGELOG is valid
