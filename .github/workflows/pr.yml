@@ -9,11 +9,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         id: checkout
+      - name: going to fail
+        id: will-fail
+        run: cat /dont-exist.txt
       - name: pylint
         id: pylint
         run: make pylint
       - name: Alert on failure
-        if: ${{ !cancelled() && (steps.checkout.outcome == 'failure' || steps.pylint.outcome == 'failure') }}
+        if: ${{ !cancelled() && (steps.checkout.outcome == 'failure' || steps.will-fail.outcome == 'failure' || steps.pylint.outcome == 'failure') }}
         uses: zulip/github-actions-zulip/send-message@b62d5a0e48a4d984ea4fce5dd65ba691963d4db4
         with:
           api-key: ${{ secrets.ZULIP_SCHEDULED_JOB_FAILURE_API_KEY }}
