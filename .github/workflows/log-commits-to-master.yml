@@ -11,4 +11,4 @@ jobs:
     name: Log events to master
     steps:
       - name: Log
-        run: cat ${GITHUB_EVENT_PATH}
+        run: cat "${GITHUB_EVENT_PATH}"
