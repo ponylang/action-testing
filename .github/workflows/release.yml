@@ -28,7 +28,7 @@ jobs:
           ref: "main"
           token: ${{ secrets.RELEASE_TOKEN }}
       - name: Validate CHANGELOG
-        uses: ponylang/release-bot-action@support-ghcr-io
+        uses: ponylang/release-bot-action@main
         with:
           entrypoint: pre-artefact-changelog-check
 
@@ -70,7 +70,7 @@ jobs:
           ref: "main"
           token: ${{ secrets.RELEASE_TOKEN }}
       - name: Trigger
-        uses: ponylang/release-bot-action@support-ghcr-io
+        uses: ponylang/release-bot-action@main
         with:
           entrypoint: trigger-release-announcement
         env:
