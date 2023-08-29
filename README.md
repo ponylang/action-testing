@@ -12,4 +12,6 @@ corral add github.com/ponylang/action-testing.git -v 0.62.0
 
 docker://ponylang/action-testing:0.62.0
 
+docker://ghcr.io/ponylang/action-testing:0.62.0
+
 -->
