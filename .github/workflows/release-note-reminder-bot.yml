@@ -10,6 +10,6 @@ jobs:
     name: Prompt for release notes
     steps:
       - name: Prompt for release notes
-        uses: docker://ponylang/release-notes-reminder-bot-action:0.1.0
+        uses: docker://ghcr.io/ponylang/release-notes-reminder-bot-action:0.1.1
         env:
            API_CREDENTIALS: ${{ secrets.PONYLANG_MAIN_API_TOKEN}}
