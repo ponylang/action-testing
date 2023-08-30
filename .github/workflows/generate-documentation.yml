@@ -20,15 +20,17 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/ponylang/library-documentation-action-v2:release
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Generate documentation
-        uses: docker://ghcr.io/ponylang/library-documentation-action-v2:latest
-        with:
-          site_url: "https://ponylang.github.io/action-testing/"
-          library_name: "http"
-          docs_build_dir: "build/http-docs"
+        run: /entrypoint.py
+        env:
+          INPUT_SITE_URL: "https://ponylang.github.io/action-testing"
+          INPUT_LIBRARY_NAME: "http"
+          INPUT_DOCS_BUILD_DIR: "build/http-docs"
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
