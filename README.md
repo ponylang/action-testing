@@ -14,4 +14,6 @@ docker://ponylang/action-testing:0.63.0
 
 docker://ghcr.io/ponylang/action-testing:0.63.0
 
+foo
+
 -->
