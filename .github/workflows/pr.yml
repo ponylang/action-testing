@@ -24,3 +24,19 @@ jobs:
       - uses: actions/checkout@v4.1.1
       - name: Verify CHANGELOG
         run: changelog-tool verify
+
+  aarch64-linux-musl:
+    name: aarch64-linux-musl
+    runs-on: ubuntu-24.04-arm
+    container:
+      image: ghcr.io/ponylang/ponyc-ci-aarch64-unknown-linux-musl-builder:20250505
+    steps:
+      - name: Download
+        run: wget https://dl.cloudsmith.io/public/ponylang/nightlies/raw/versions/20250510/ponyc-aarch64-unknown-linux-musl.tar.gz
+      - name: Extract
+        run: tar -xzf ponyc-aarch64-unknown-linux-musl.tar.gz
+      - name: Set +x bit
+        run: |
+          chmod a+x ./nightly-20250510/bin/ponyc
+      - name: Run
+        run: ./nightly-20250510/bin/ponyc --version
