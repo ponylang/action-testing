@@ -32,11 +32,11 @@ jobs:
       image: ghcr.io/ponylang/ponyc-ci-aarch64-unknown-linux-musl-builder:20250505
     steps:
       - name: Download
-        run: wget https://dl.cloudsmith.io/public/ponylang/nightlies/raw/versions/20250510/ponyc-aarch64-unknown-linux-musl.tar.gz
+        run: wget https://dl.cloudsmith.io/public/ponylang/nightlies/raw/versions/20250511/ponyc-arm64-unknown-linux-musl.tar.gz
       - name: Extract
-        run: tar -xzf ponyc-aarch64-unknown-linux-musl.tar.gz
+        run: tar -xzf ponyc-arm64-unknown-linux-musl.tar.gz
       - name: Set +x bit
         run: |
-          chmod a+x ./nightly-20250510/bin/ponyc
+          chmod a+x ./nightly-20250511/bin/ponyc
       - name: Run
-        run: ./nightly-20250510/bin/ponyc --version
+        run: ./nightly-20250511/bin/ponyc --version
