@@ -3,11 +3,11 @@
   "deps": [
     {
       "locator": "github.com/ponylang/ssl.git",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     {
       "locator": "github.com/ponylang/regex.git",
-      "version": "1.1.5"
+      "version": "1.1.6"
     }
   ],
   "info": {
