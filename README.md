@@ -22,15 +22,15 @@ t
 
 test
 
-ponylang/action-testing@0.63.1
+ponylang/action-testing@0.63.2
 i
 
-corral add github.com/ponylang/action-testing.git --version 0.63.1
+corral add github.com/ponylang/action-testing.git --version 0.63.2
 
-corral add github.com/ponylang/action-testing.git -v 0.63.1
+corral add github.com/ponylang/action-testing.git -v 0.63.2
 
-docker://ponylang/action-testing:0.63.1
+docker://ponylang/action-testing:0.63.2
 
-docker://ghcr.io/ponylang/action-testing:0.63.1
+docker://ghcr.io/ponylang/action-testing:0.63.2
 
 -->
