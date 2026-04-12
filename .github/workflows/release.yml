@@ -28,9 +28,15 @@ jobs:
           ref: "main"
           token: ${{ secrets.RELEASE_TOKEN }}
       - name: Validate CHANGELOG
-        uses: docker://ghcr.io/ponylang/release-bot-action:0.6.5
+        uses: ponylang/release-bot-action@create-empty-github-release-entrypoint
         with:
           entrypoint: pre-artefact-changelog-check
+      - name: Create empty GitHub release
+        uses: ponylang/release-bot-action@create-empty-github-release-entrypoint
+        with:
+          entrypoint: create-empty-github-release
+        env:
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
 
   build-library-documentation:
     runs-on: ubuntu-latest
@@ -70,7 +76,7 @@ jobs:
           ref: "main"
           token: ${{ secrets.RELEASE_TOKEN }}
       - name: Trigger
-        uses: docker://ghcr.io/ponylang/release-bot-action:0.6.5
+        uses: ponylang/release-bot-action@create-empty-github-release-entrypoint
         with:
           entrypoint: trigger-release-announcement
         env:
