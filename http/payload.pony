@@ -4,8 +4,19 @@ use "format"
 use "buffered"
 
 primitive ChunkedTransfer
+  """
+  Transfer the body in chunks with no predetermined total length.
+  """
+
 primitive StreamTransfer
+  """
+  Transfer the body as a stream with a known Content-Length.
+  """
+
 primitive OneshotTransfer
+  """
+  Transfer the entire body at once, determining the length at send time.
+  """
 
 type TransferMode is (ChunkedTransfer | StreamTransfer | OneshotTransfer)
 
@@ -75,14 +86,12 @@ class trn Payload
   """
   var proto: String = "HTTP/1.1"
     """The HTTP protocol string"""
-
   var status: U16
     """
     Internal representation of the response [Status](http-Status).
 
     Will be `0` for HTTP requests.
     """
-
   var method: String
     """
     The HTTP Method.
@@ -92,7 +101,6 @@ class trn Payload
     For HTTP responses this will be the status string,
     for a `200` status this will be `200 OK`, for `404`, `404 Not Found` etc..
     """
-
   var url: URL
     """
     The HTTP request [URL](http-URL).
@@ -113,7 +121,6 @@ class trn Payload
     how the request is transferred.
     """
   var session: (HTTPSession | None) = None
-
   embed _headers: Map[String, String] = _headers.create()
   embed _body: Array[ByteSeq val] = _body.create()
   let _response: Bool
@@ -200,7 +207,7 @@ class trn Payload
     transfer. Not calling this function at all will
     use Oneshot transfer.
     """
-    match bytecount
+    match \exhaustive\ bytecount
     | None  =>
       transfer_mode = ChunkedTransfer
       _headers("Transfer-Encoding") = "chunked"
@@ -217,9 +224,10 @@ class trn Payload
     Set any header. If we've already received the header, append the value as a
     comma separated list, as per RFC 2616 section 4.2.
     """
-    _headers.upsert(key.lower(),
+    _headers.upsert(
+      key.lower(),
       value,
-      {(current, provided) => current + "," + provided})
+      {(current, provided) => current + "," + provided })
     this
 
   fun headers(): this->Map[String, String] =>

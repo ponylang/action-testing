@@ -303,13 +303,17 @@ actor _ClientConnection is HTTPSession
         let ssl = ctx.client(_host)?
         TCPConnection(
           _auth,
-          SSLConnection(_ClientConnHandler(this, _keepalive_timeout_secs), consume ssl),
-          _host, _service)
+          SSLConnection(
+            _ClientConnHandler(this, _keepalive_timeout_secs),
+            consume ssl),
+          _host,
+          _service)
       else
         TCPConnection(
           _auth,
           _ClientConnHandler(this, _keepalive_timeout_secs),
-          _host, _service)
+          _host,
+          _service)
       end
       _conn = _ConnConnecting
     end

@@ -23,20 +23,19 @@ class HTTPClient
     Create the context in which all HTTP sessions will originate.
 
     Parameters:
-    - keepalive_timeout_secs: Use TCP Keepalive and check if the other side is down
-                              every `keepalive_timeout_secs` seconds.
+    - keepalive_timeout_secs: Use TCP Keepalive and check if the
+      other side is down every `keepalive_timeout_secs` seconds.
     """
     _auth = auth
 
-    _sslctx = try
-      sslctx as SSLContext
-    else
-      recover
-        let newssl = SSLContext
-        newssl.set_client_verify(false)
-        newssl
+    _sslctx =
+      try
+        sslctx as SSLContext
+      else
+        recover
+          SSLContext .> set_client_verify(false)
         end
-    end
+      end
 
     _pipeline = pipeline
     _keepalive_timeout_secs = keepalive_timeout_secs
@@ -70,16 +69,6 @@ class HTTPClient
     end
     _sessions.clear()
 
-/*
-  fun ref cancel(request: Payload val) =>
-    """
-    Cancel a request.
-    """
-    match request.session
-    | let s _ClientConnection tag => s.cancel(request)
-    end
-*/
-
   fun ref _get_session(
     url: URL,
     handlermaker: HandlerFactory val)
@@ -99,11 +88,23 @@ class HTTPClient
       let session =
         match url.scheme
         | "http" =>
-          _ClientConnection(_auth, hs.host, hs.service,
-            None, _pipeline, _keepalive_timeout_secs, handlermaker)
+          _ClientConnection(
+            _auth,
+            hs.host,
+            hs.service,
+            None,
+            _pipeline,
+            _keepalive_timeout_secs,
+            handlermaker)
         | "https" =>
-          _ClientConnection(_auth, hs.host, hs.service,
-            _sslctx, _pipeline, _keepalive_timeout_secs, handlermaker)
+          _ClientConnection(
+            _auth,
+            hs.host,
+            hs.service,
+            _sslctx,
+            _pipeline,
+            _keepalive_timeout_secs,
+            handlermaker)
         else
           error
         end
