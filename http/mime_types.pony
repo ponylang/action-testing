@@ -1,9 +1,9 @@
-primitive MimeTypes
+primitive MIMETypes
   """
   Provide mapping from file names to MIME types.
   TODO load from /etc/mime.types
   """
-  
+
   fun apply(name: String): String val^ =>
     """
     Mapping is based on the file type, following the last period in the name.

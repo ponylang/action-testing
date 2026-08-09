@@ -44,13 +44,16 @@ class _ClientConnHandler is TCPConnectionNotify
     """
     _session._auth_failed(conn)
 
-  fun ref received(conn: TCPConnection ref, data: Array[U8] iso,
-    times: USize): Bool
+  fun ref received(
+    conn: TCPConnection ref,
+    data: Array[U8] iso,
+    times: USize)
+    : Bool
   =>
-   """
-   Pass a received chunk of data to the `HTTPParser`.
-   """
-   // TODO: inactivity timer
+    """
+    Pass a received chunk of data to the `HTTPParser`.
+    """
+    // TODO: inactivity timer
     _buffer.append(consume data)
 
     // Let the parser take a look at what has been received.

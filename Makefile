@@ -5,6 +5,7 @@ GET_DEPENDENCIES_WITH := corral fetch
 CLEAN_DEPENDENCIES_WITH := corral clean
 COMPILE_WITH := corral run -- ponyc
 BUILD_DOCS_WITH := corral run -- pony-doc
+LINT_WITH := corral run -- pony-lint
 
 BUILD_DIR ?= build/$(config)
 SRC_DIR := $(PACKAGE)
@@ -42,7 +43,11 @@ $(docs_dir): $(BUILD_DIR) $(SOURCE_FILES)
 
 docs: $(docs_dir)
 
+lint:
+	$(GET_DEPENDENCIES_WITH)
+	$(LINT_WITH) .
+
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
-.PHONY: build pylint push
+.PHONY: build pylint push lint

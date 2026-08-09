@@ -11,6 +11,7 @@ primitive ConnectionClosed
   either from the other side (detectable when using TCP keepalive)
   or locally (e.g. due to an error).
   """
+
 primitive ConnectFailed
   """
   HTTP failure reason for when a connection could not be established.
@@ -18,10 +19,10 @@ primitive ConnectFailed
   This failure reason is only valid for HTTP client HTTPHandlers.
   """
 
-type HTTPFailureReason is (
-  AuthFailed |
-  ConnectionClosed |
-  ConnectFailed
+type HTTPFailureReason is
+  ( AuthFailed
+  | ConnectionClosed
+  | ConnectFailed
   )
   """
   HTTP failure reason reported to `HTTPHandler.failed()`.
@@ -73,14 +74,16 @@ interface HTTPHandler
 
   fun ref cancelled() =>
     """
-    Notification that transferring the payload has been cancelled locally,
-    e.g. by disposing the client, closing the server or manually cancelling a single request.
+    Notification that transferring the payload has been cancelled
+    locally, e.g. by disposing the client, closing the server or
+    manually cancelling a single request.
     """
 
   fun ref failed(reason: HTTPFailureReason) =>
     """
     Notification about failure to transfer the payload
-    (e.g. connection could not be established, authentication failed, connection was closed prematurely, ...)
+    (e.g. connection could not be established, authentication
+    failed, connection was closed prematurely).
     """
 
   fun ref throttled() =>

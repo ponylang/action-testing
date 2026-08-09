@@ -12,6 +12,7 @@ class \nodoc\ val _StreamTransferHandlerFactory is HandlerFactory
   let _h: TestHelper
   var expected_length: USize = 0
   var received_size: USize = 0
+
   new val create(h: TestHelper) =>
     _h = h
 
@@ -41,6 +42,7 @@ class \nodoc\ val _StreamTransferHandlerFactory is HandlerFactory
 
 class \nodoc\ iso _ClientStreamTransferTest is UnitTest
   fun name(): String => "client/stream-transfer"
+
   fun apply(h: TestHelper) =>
     h.long_test(2_000_000_000)
 
@@ -50,20 +52,25 @@ class \nodoc\ iso _ClientStreamTransferTest is UnitTest
     h.expect_action("chunk")
     h.expect_action("finished")
 
-    let notify = object iso is TCPListenNotify
+    let notify =
+      object iso is TCPListenNotify
       let _h: TestHelper = h
 
       fun ref listening(listen: TCPListener ref) =>
         _h.complete_action("server listening")
         try
-          let client = HTTPClient(
-            TCPConnectAuth(_h.env.root),
-            None
-            where keepalive_timeout_secs = U32(2)
-          )
+          let client =
+            HTTPClient(
+              TCPConnectAuth(_h.env.root),
+              None
+              where keepalive_timeout_secs = U32(2)
+            )
           (let host, let port) = listen.local_address().name()?
           _h.log("connecting to server at " + host + ":" + port)
-          let req = Payload.request("GET", URL.build("http://" + host + ":" + port  + "/bla")?)
+          let url =
+            URL.build(
+              "http://" + host + ":" + port + "/bla")?
+          let req = Payload.request("GET", url)
           client(
             consume req,
             _StreamTransferHandlerFactory(_h)
@@ -82,11 +89,16 @@ class \nodoc\ iso _ClientStreamTransferTest is UnitTest
       fun ref connected(listen: TCPListener ref): TCPConnectionNotify iso^ =>
         object iso is TCPConnectionNotify
           var written: Bool = false
-          fun ref received(conn: TCPConnection ref, data: Array[U8] iso, times: USize): Bool =>
+          fun ref received(
+            conn: TCPConnection ref,
+            data: Array[U8] iso,
+            times: USize)
+            : Bool
+          =>
             _h.log("received stuff")
             if not written then
-              conn.write("\r\n".join([
-                "HTTP/1.1 200 OK"
+              conn.write("\r\n".join(
+                [ "HTTP/1.1 200 OK"
                 "Server: Bla"
                 "Content-Length: 10004"
                 "Content-Type: application/octet-stream"
@@ -116,5 +128,10 @@ class \nodoc\ iso _ClientStreamTransferTest is UnitTest
     let host = "127.0.0.1"
     let service = "0"
 
-    let listener = TCPListener.ip4(TCPListenAuth(h.env.root), consume notify, host, service)
+    let listener =
+      TCPListener.ip4(
+        TCPListenAuth(h.env.root),
+        consume notify,
+        host,
+        service)
     h.dispose_when_done(listener)

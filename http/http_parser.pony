@@ -30,6 +30,9 @@ type _PayloadState is
   )
 
 primitive ParseError
+  """
+  Returned when the HTTP parser encounters invalid syntax.
+  """
 
 class HTTPParser
   """
@@ -99,11 +102,12 @@ class HTTPParser
     The parser is finished with the message headers so we can push it
     to the `HTTPSession`. The body may come later.
     """
-    let body_follows = match _payload.transfer_mode
+    let body_follows =
+      match _payload.transfer_mode
       | ChunkedTransfer => true
-    else
-      (_expected_length > 0)
-    end
+      else
+        (_expected_length > 0)
+      end
 
     // Set up `_payload` for the next message.
     let payload = _payload = Payload._empty(_client)
@@ -121,11 +125,12 @@ class HTTPParser
     _transfer_mode = OneshotTransfer
     _chunk_end = false
 
-    _state = if _client then
-      _ExpectResponse
-    else
-      _ExpectRequest
-    end
+    _state =
+      if _client then
+        _ExpectResponse
+      else
+        _ExpectRequest
+      end
 
   fun ref closed(buffer: Reader) =>
     """
@@ -206,37 +211,36 @@ class HTTPParser
     while true do
       // Try to get another line out of the available buffer.
       // If this fails it is not a syntax error; we just wait for more.
-      try
-        let line = buffer.line()?
-        if line.size() == 0 then
-          // An empty line marks the end of the headers. Set state
-          // appropriately.
-          _set_header_end()
-
-          // deliver for empty responses, chunked or streamed transfer
-          // accumulate the body in the Payload for OneshotTransfer
-          match _payload.transfer_mode
-          | OneshotTransfer if _state isnt _ExpectBody => _deliver()
-          | StreamTransfer =>                             _deliver()
-          | ChunkedTransfer =>                            _deliver()
-          end
-          parse(buffer)
+      let line =
+        try
+          buffer.line()?
         else
-          // A non-empty line *must* be a header. error if not.
-          try
-            _process_header(consume line)?
-          else
-            _state = _ExpectError
-            break
-          end
-        end // line-size check
-      else
-        // Failed to get a line. We stay in _ExpectHeader state.
-        return
-      end // try
-    end // looping over all headers in this buffer
+          // Failed to get a line. We stay in _ExpectHeader state.
+          return
+        end
 
-    // Breaking out of that loop means an error.
+      if line.size() == 0 then
+        // An empty line marks the end of the headers.
+        _set_header_end()
+
+        // deliver for empty responses, chunked or streamed transfer
+        // accumulate the body in the Payload for OneshotTransfer
+        match _payload.transfer_mode
+        | OneshotTransfer if _state isnt _ExpectBody => _deliver()
+        | StreamTransfer =>                             _deliver()
+        | ChunkedTransfer =>                            _deliver()
+        end
+        return parse(buffer)
+      end
+
+      // A non-empty line *must* be a header. error if not.
+      try
+        _process_header(consume line)?
+      else
+        _state = _ExpectError
+        return ParseError
+      end
+      end
     if _state is _ExpectError then ParseError end
 
   fun ref _process_header(line: String) ? =>
@@ -245,8 +249,9 @@ class HTTPParser
     or can't interpret the value.
     """
     let i = line.find(":")?
-    let key = line.substring(0, i)
-    key.>strip().lower_in_place()
+    let key_iso = line.substring(0, i)
+    key_iso .> strip().lower_in_place()
+    let key: String val = consume key_iso
     let value = line.substring(i + 1)
     value.strip()
     let value2: String val = consume value
@@ -283,7 +288,7 @@ class HTTPParser
 
     end // match certain headers
 
-    _payload(consume key) = value2
+    _payload(key) = value2
 
   fun ref _setauth(auth: String) =>
     """
@@ -317,10 +322,11 @@ class HTTPParser
       // If chunked mode or length>0 then some body data will follow.
       // In any case we can pass the completed `Payload` on to the
       // session for processing.
-      _state = match _payload.transfer_mode
-      | ChunkedTransfer =>
-        _ExpectChunkStart
-      else
+      _state =
+        match _payload.transfer_mode
+        | ChunkedTransfer =>
+          _ExpectChunkStart
+        else
         if _expected_length == 0 then
           _ExpectReady
         else
@@ -343,7 +349,7 @@ class HTTPParser
       let body = recover val consume bytes end
       _expected_length = _expected_length - usable
       // in streaming mode we already have a new unrelated payload in _payload
-      // so we need to keep track of the current transfer-mode via _transfer_mode
+      // so we track the current transfer-mode via _transfer_mode
       match _transfer_mode
       | OneshotTransfer =>
         // in oneshot transfer we actually fill the body of the payload
@@ -372,20 +378,22 @@ class HTTPParser
     terminated by CRLF. An explicit length of zero marks the end of
     the entire chunked message body.
     """
-    let line = try
-      buffer.line()?
-    else
-      return ParseError
-    end
+    let line =
+      try
+        buffer.line()?
+      else
+        return ParseError
+      end
 
     if line.size() > 0
     then
       // This should be the length of the next chunk.
-      _expected_length = try
-        line.read_int[USize](0, 16)?._1
-      else
-        return ParseError
-      end
+      _expected_length =
+        try
+          line.read_int[USize](0, 16)?._1
+        else
+          return ParseError
+        end
       // A chunk explicitly of length zero marks the end of the body.
       if _expected_length > 0 then
         _state = _ExpectChunk
@@ -422,7 +430,7 @@ class HTTPParser
       if _expected_length == 0 then
         _state = _ExpectChunkEnd
         parse(buffer)
-        end
+      end
     end
 
   fun ref _parse_chunk_end(buffer: Reader) =>

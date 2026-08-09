@@ -1,9 +1,32 @@
 primitive URLPartUser
+  """
+  The user component of a URL.
+  """
+
 primitive URLPartPassword
+  """
+  The password component of a URL.
+  """
+
 primitive URLPartHost
+  """
+  The host component of a URL.
+  """
+
 primitive URLPartPath
+  """
+  The path component of a URL.
+  """
+
 primitive URLPartQuery
+  """
+  The query component of a URL.
+  """
+
 primitive URLPartFragment
+  """
+  The fragment component of a URL.
+  """
 
 type URLPart is
   ( URLPartUser
@@ -13,7 +36,6 @@ type URLPart is
   | URLPartQuery
   | URLPartFragment
   )
-
 
 primitive URLEncode
   """
@@ -102,7 +124,7 @@ primitive URLEncode
 
       while i < scheme.size() do
         let c = scheme(i)?
-        
+
         if
           ((c < 'a') or (c > 'z'))
             and ((c < 'A') or (c > 'Z'))
@@ -113,7 +135,7 @@ primitive URLEncode
         then
           return false
         end
-        
+
         i = i + 1
       end
     end
@@ -138,7 +160,7 @@ primitive URLEncode
 
       while i < from.size() do
         let c = from(i)?
-        
+
         if c == '%' then
           // Character is encoded.
           // _unhex() will throw on bad / missing hex digit.
@@ -183,7 +205,7 @@ primitive URLEncode
     else
       false
     end
-    
+
   fun _normal_decode(value: U8, part: URLPart): Bool =>
     """
     Determine whether the given character should be decoded to give normal
@@ -246,7 +268,7 @@ primitive URLEncode
       then
         error
       end
-        
+
       i = i + 1
     end
 

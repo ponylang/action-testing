@@ -44,8 +44,10 @@ class \nodoc\ iso _Encode is UnitTest
 
   fun apply(h: TestHelper) ? =>
     // Unreserved chars, decoded.
-    h.assert_eq[String]("Aa4-._~Aa4-._~",
-      URLEncode.encode("Aa4-._~%41%61%34%2D%2E%5F%7E", URLPartUser)?)
+    h.assert_eq[String](
+      "Aa4-._~Aa4-._~",
+      URLEncode.encode(
+        "Aa4-._~%41%61%34%2D%2E%5F%7E", URLPartUser)?)
 
     h.assert_eq[String]("F_12x", URLEncode.encode("F_1%32x", URLPartPassword)?)
     h.assert_eq[String]("F_12x", URLEncode.encode("F_1%32x", URLPartHost)?)
@@ -54,8 +56,10 @@ class \nodoc\ iso _Encode is UnitTest
     h.assert_eq[String]("F_12x", URLEncode.encode("F_1%32x", URLPartFragment)?)
 
     // Sub-delimiters, left encoded or not as original.
-    h.assert_eq[String]("!$&'()*+,;=%21%24%26%27%28%29%2A%2B%2C%3B%3D",
-      URLEncode.encode("!$&'()*+,;=%21%24%26%27%28%29%2A%2B%2C%3B%3D",
+    h.assert_eq[String](
+      "!$&'()*+,;=%21%24%26%27%28%29%2A%2B%2C%3B%3D",
+      URLEncode.encode(
+        "!$&'()*+,;=%21%24%26%27%28%29%2A%2B%2C%3B%3D",
         URLPartUser)?)
 
     h.assert_eq[String](",%2C", URLEncode.encode(",%2C", URLPartPassword)?)
@@ -65,9 +69,11 @@ class \nodoc\ iso _Encode is UnitTest
     h.assert_eq[String](",%2C", URLEncode.encode(",%2C", URLPartFragment)?)
 
     // Misc characters, encoded.
-    h.assert_eq[String]("%23%3C%3E%5B%5D%7B%7D%7C%5E%20" +
-      "%23%3C%3E%5B%5D%7B%7D%7C%5E%25",
-      URLEncode.encode("#<>[]{}|^ %23%3C%3E%5B%5D%7B%7D%7C%5E%25",
+    h.assert_eq[String](
+      "%23%3C%3E%5B%5D%7B%7D%7C%5E%20"
+        + "%23%3C%3E%5B%5D%7B%7D%7C%5E%25",
+      URLEncode.encode(
+        "#<>[]{}|^ %23%3C%3E%5B%5D%7B%7D%7C%5E%25",
         URLPartUser)?)
 
     h.assert_eq[String]("%23%23", URLEncode.encode("#%23", URLPartPassword)?)
@@ -78,7 +84,8 @@ class \nodoc\ iso _Encode is UnitTest
 
     // Delimiters, whether encoded depends on URL part.
     h.assert_eq[String]("%3A%40%2F%3F", URLEncode.encode(":@/?", URLPartUser)?)
-    h.assert_eq[String](":%40%2F%3F",
+    h.assert_eq[String](
+      ":%40%2F%3F",
       URLEncode.encode(":@/?", URLPartPassword)?)
     h.assert_eq[String]("%3A%40%2F%3F", URLEncode.encode(":@/?", URLPartHost)?)
     h.assert_eq[String](":@/%3F", URLEncode.encode(":@/?", URLPartPath)?)
@@ -120,8 +127,10 @@ class \nodoc\ iso _Check is UnitTest
 
   fun apply(h: TestHelper) =>
     // Unreserved chars, legal encoded or not.
-    h.assert_eq[Bool](true,
-      URLEncode.check("Aa4-._~%41%61%34%2D%2E%5F%7E", URLPartUser))
+    h.assert_eq[Bool](
+      true,
+      URLEncode.check(
+        "Aa4-._~%41%61%34%2D%2E%5F%7E", URLPartUser))
 
     h.assert_eq[Bool](true, URLEncode.check("F_1%32x", URLPartPassword))
     h.assert_eq[Bool](true, URLEncode.check("F_1%32x", URLPartHost))
@@ -130,8 +139,10 @@ class \nodoc\ iso _Check is UnitTest
     h.assert_eq[Bool](true, URLEncode.check("F_1%32x", URLPartFragment))
 
     // Sub-delimiters, legal encoded or not.
-    h.assert_eq[Bool](true,
-      URLEncode.check("!$&'()*+,;=%21%24%26%27%28%29%2A%2B%2C%3B%3D",
+    h.assert_eq[Bool](
+      true,
+      URLEncode.check(
+        "!$&'()*+,;=%21%24%26%27%28%29%2A%2B%2C%3B%3D",
         URLPartUser))
 
     h.assert_eq[Bool](true, URLEncode.check(",%2C", URLPartPassword))
@@ -141,8 +152,10 @@ class \nodoc\ iso _Check is UnitTest
     h.assert_eq[Bool](true, URLEncode.check(",%2C", URLPartFragment))
 
     // Misc characters, must be encoded.
-    h.assert_eq[Bool](true,
-      URLEncode.check("%23%3C%3E%5B%5D%7B%7D%7C%5E%25", URLPartUser))
+    h.assert_eq[Bool](
+      true,
+      URLEncode.check(
+        "%23%3C%3E%5B%5D%7B%7D%7C%5E%25", URLPartUser))
     h.assert_eq[Bool](false, URLEncode.check("<", URLPartUser))
     h.assert_eq[Bool](false, URLEncode.check(">", URLPartUser))
     h.assert_eq[Bool](false, URLEncode.check("|", URLPartUser))
@@ -213,16 +226,21 @@ class \nodoc\ iso _Decode is UnitTest
   fun name(): String => "http/URLEncode.decode"
 
   fun apply(h: TestHelper) ? =>
-    h.assert_eq[String]("Aa4-._~Aa4-._~",
+    h.assert_eq[String](
+      "Aa4-._~Aa4-._~",
       URLEncode.decode("Aa4-._~%41%61%34%2D%2E%5F%7E")?)
 
     h.assert_eq[String]("F_12x", URLEncode.decode("F_1%32x")?)
 
-    h.assert_eq[String]("!$&'()* ,;=!$&'()*+,;=",
-      URLEncode.decode("!$&'()*+,;=%21%24%26%27%28%29%2A%2B%2C%3B%3D")?)
+    h.assert_eq[String](
+      "!$&'()* ,;=!$&'()*+,;=",
+      URLEncode.decode(
+        "!$&'()*+,;=%21%24%26%27%28%29%2A%2B%2C%3B%3D")?)
 
-    h.assert_eq[String]("#<>[]{}|^ #<>[]{}|^ %",
-      URLEncode.decode("#<>[]{}|^ %23%3C%3E%5B%5D%7B%7D%7C%5E%20%25")?)
+    h.assert_eq[String](
+      "#<>[]{}|^ #<>[]{}|^ %",
+      URLEncode.decode(
+        "#<>[]{}|^ %23%3C%3E%5B%5D%7B%7D%7C%5E%20%25")?)
 
 class \nodoc\ iso _DecodeBad is UnitTest
   fun name(): String => "http/URLEncode.decode_bad"
@@ -236,52 +254,161 @@ class \nodoc\ iso _BuildBasic is UnitTest
   fun name(): String => "http/URL.build_basic"
 
   fun apply(h: TestHelper) ? =>
-    _Test(h,
-      URL.build("https://user:password@host.name:12345/path?query#fragment")?,
-      "https", "user", "password", "host.name", 12345, "/path", "query",
+    _Test(
+      h,
+      URL.build(
+        "https://user:password@host.name:12345" +
+          "/path?query#fragment")?,
+      "https",
+      "user",
+      "password",
+      "host.name",
+      12345,
+      "/path",
+      "query",
       "fragment")
 
-    _Test(h,
-      URL.build("http://rosettacode.org/wiki/Category]Pony")?,
-      "http", "", "", "rosettacode.org", 80, "/wiki/Category%5DPony", "", "")
+    _Test(
+      h,
+      URL.build(
+        "http://rosettacode.org/wiki/Category]Pony")?,
+      "http",
+      "",
+      "",
+      "rosettacode.org",
+      80,
+      "/wiki/Category%5DPony",
+      "",
+      "")
 
-    _Test(h,
-      URL.build("https://en.wikipedia.org/wiki/Polymorphism_" +
-        "(computer_science)#Parametric_polymorphism")?,
-      "https", "", "", "en.wikipedia.org", 443,
-      "/wiki/Polymorphism_(computer_science)", "",
+    _Test(
+      h,
+      URL.build(
+        "https://en.wikipedia.org/wiki/Polymorphism_"
+          + "(computer_science)"
+          + "#Parametric_polymorphism")?,
+      "https",
+      "",
+      "",
+      "en.wikipedia.org",
+      443,
+      "/wiki/Polymorphism_(computer_science)",
+      "",
       "Parametric_polymorphism")
 
-    _Test(h, URL.build("http://user@host")?,
-      "http", "user", "", "host", 80, "/", "", "")
+    _Test(
+      h,
+      URL.build("http://user@host")?,
+      "http",
+      "user",
+      "",
+      "host",
+      80,
+      "/",
+      "",
+      "")
 
 class \nodoc\ iso _BuildMissingParts is UnitTest
   fun name(): String => "http/URL.build_missing_parts"
 
   fun apply(h: TestHelper) ? =>
-    _Test(h, URL.build("https://user@host.name/path#fragment")?,
-      "https", "user", "", "host.name", 443, "/path", "", "fragment")
+    _Test(
+      h,
+      URL.build(
+        "https://user@host.name/path#fragment")?,
+      "https",
+      "user",
+      "",
+      "host.name",
+      443,
+      "/path",
+      "",
+      "fragment")
 
-    _Test(h, URL.build("https://user@host.name#fragment")?,
-      "https", "user", "", "host.name", 443, "/", "", "fragment")
+    _Test(
+      h,
+      URL.build("https://user@host.name#fragment")?,
+      "https",
+      "user",
+      "",
+      "host.name",
+      443,
+      "/",
+      "",
+      "fragment")
 
-    _Test(h, URL.build("//host.name/path")?,
-      "", "", "", "host.name", 0, "/path", "", "")
+    _Test(
+      h,
+      URL.build("//host.name/path")?,
+      "",
+      "",
+      "",
+      "host.name",
+      0,
+      "/path",
+      "",
+      "")
 
-    _Test(h, URL.build("/path")?,
-      "", "", "", "", 0, "/path", "", "")
+    _Test(
+      h,
+      URL.build("/path")?,
+      "",
+      "",
+      "",
+      "",
+      0,
+      "/path",
+      "",
+      "")
 
-    _Test(h, URL.build("?query")?,
-      "", "", "", "", 0, "/", "query", "")
+    _Test(
+      h,
+      URL.build("?query")?,
+      "",
+      "",
+      "",
+      "",
+      0,
+      "/",
+      "query",
+      "")
 
-    _Test(h, URL.build("#fragment")?,
-      "", "", "", "", 0, "/", "", "fragment")
+    _Test(
+      h,
+      URL.build("#fragment")?,
+      "",
+      "",
+      "",
+      "",
+      0,
+      "/",
+      "",
+      "fragment")
 
-    _Test(h, URL.build("https://host.name/path#frag?ment")?,
-      "https", "", "", "host.name", 443, "/path", "", "frag?ment")
+    _Test(
+      h,
+      URL.build("https://host.name/path#frag?ment")?,
+      "https",
+      "",
+      "",
+      "host.name",
+      443,
+      "/path",
+      "",
+      "frag?ment")
 
-    _Test(h, URL.build("https://user@host.name?quer/y#fragment")?,
-      "https", "user", "", "host.name", 443, "/", "quer/y", "fragment")
+    _Test(
+      h,
+      URL.build(
+        "https://user@host.name?quer/y#fragment")?,
+      "https",
+      "user",
+      "",
+      "host.name",
+      443,
+      "/",
+      "quer/y",
+      "fragment")
 
 class \nodoc\ iso _BuildBad is UnitTest
   fun name(): String => "http/URL.build_bad"
@@ -311,29 +438,59 @@ class \nodoc\ iso _BuildNoEncoding is UnitTest
   fun name(): String => "http/URL.build_no_encoding"
 
   fun apply(h: TestHelper) ? =>
-    _Test(h, URL.build("https://host.name/path%32path", false)?,
-      "https", "", "", "host.name", 443, "/path%2532path", "", "")
+    _Test(
+      h,
+      URL.build(
+        "https://host.name/path%32path", false)?,
+      "https",
+      "",
+      "",
+      "host.name",
+      443,
+      "/path%2532path",
+      "",
+      "")
 
 class \nodoc\ iso _Valid is UnitTest
   fun name(): String => "http/URL.valid"
 
   fun apply(h: TestHelper) ? =>
-    _Test(h,
-      URL.valid("https://user:password@host.name:12345/path?query#fragment")?,
-      "https", "user", "password", "host.name", 12345, "/path", "query",
+    _Test(
+      h,
+      URL.valid(
+        "https://user:password@host.name:12345" +
+          "/path?query#fragment")?,
+      "https",
+      "user",
+      "password",
+      "host.name",
+      12345,
+      "/path",
+      "query",
       "fragment")
 
     h.assert_error({() ? =>
-      URL.valid("http://rosettacode.org/wiki/Category[Pony]")?
+      URL.valid(
+        "http://rosettacode.org/wiki/Category[Pony]")?
     })
 
     h.assert_error({() ? =>
-      URL.valid("https://en.wikipedia|org/wiki/Polymorphism_" +
-        "(computer_science)#Parametric_polymorphism")?
+      URL.valid(
+        "https://en.wikipedia|org/wiki/Polymorphism_"
+          + "(computer_science)#Parametric_polymorphism")?
     })
 
-    _Test(h, URL.valid("http://user@host")?,
-      "http", "user", "", "host", 80, "/", "", "")
+    _Test(
+      h,
+      URL.valid("http://user@host")?,
+      "http",
+      "user",
+      "",
+      "host",
+      80,
+      "/",
+      "",
+      "")
 
 class \nodoc\ iso _ToStringFun is UnitTest
   fun name(): String => "http/URL.to_string"
@@ -344,14 +501,18 @@ class \nodoc\ iso _ToStringFun is UnitTest
       URL.build("https://user:password@host.name:12345/path?query#fragment")?
         .string())
 
-    h.assert_eq[String]("http://rosettacode.org/wiki/Category%5DPony",
-      URL.build("http://rosettacode.org/wiki/Category]Pony")?.string())
+    h.assert_eq[String](
+      "http://rosettacode.org/wiki/Category%5DPony",
+      URL.build(
+        "http://rosettacode.org/wiki/Category]Pony")?.string())
 
-    h.assert_eq[String]("http://user@host/",
+    h.assert_eq[String](
+      "http://user@host/",
       URL.build("http://user@host")?.string())
 
     // Default ports should be omitted.
-    h.assert_eq[String]("http://host.name/path",
+    h.assert_eq[String](
+      "http://host.name/path",
       URL.build("http://host.name:80/path")?.string())
 
 primitive \nodoc\ _Test
@@ -420,7 +581,8 @@ class \nodoc\ iso _HTTPConnTest is UnitTest
     h.expect_action("server connection accepted")
     h.expect_action("server connection closed")
 
-    let worker = object
+    let worker =
+      object
       var client: (HTTPClient iso | None) = None
 
       be listening(service: String) =>
@@ -573,12 +735,12 @@ primitive \nodoc\ _FixedResponseHTTPServerNotify
               h.log("unthrottled")
           end // object
         end // recover
-
       end // object
     end // recover
 
 class \nodoc\ iso _HTTPParserNoBodyTest is UnitTest
   fun name(): String => "http/HTTPParser.NoBody"
+
   fun ref apply(h: TestHelper) =>
     let test_session =
       object is HTTPSession
@@ -603,14 +765,15 @@ class \nodoc\ iso _HTTPParserNoBodyTest is UnitTest
           h.fail("HTTPSession._finish called.")
       end
     let parser = HTTPParser.request(test_session)
-    let payload: String = "\r\n".join([
-      "GET /get HTTP/1.1"
-      "Host: httpbin.org"
-      "User-Agent: curl/7.58.0"
-      "Accept: */*"
-      ""
-      ""
-      ].values())
+    let payload: String =
+      "\r\n".join(
+        [ "GET /get HTTP/1.1"
+          "Host: httpbin.org"
+          "User-Agent: curl/7.58.0"
+          "Accept: */*"
+          ""
+          ""
+        ].values())
 
     h.long_test(2_000_000_000)
     h.expect_action("_deliver")
@@ -622,6 +785,7 @@ class \nodoc\ iso _HTTPParserNoBodyTest is UnitTest
 
 class \nodoc\ iso _HTTPParserOneshotBodyTest is UnitTest
   fun name(): String => "http/HTTPParser.OneshotBody"
+
   fun ref apply(h: TestHelper) =>
     let body = "custname=Pony+Mc+Ponyface&custtel=%2B490123456789&custemail=pony%40ponylang.org&size=large&topping=bacon&topping=cheese&topping=onion&delivery=&comments=This+is+a+stupid+test"
     let test_session =
@@ -655,22 +819,36 @@ class \nodoc\ iso _HTTPParserOneshotBodyTest is UnitTest
           h.fail("HTTPSession._finish called.")
       end
     let parser = HTTPParser.request(test_session)
-    let payload: String = "\r\n".join([
-        "POST /post HTTP/1.1"
-        "Host: httpbin.org"
-        "User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0"
-        "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
-        "Accept-Language: en-GB,en;q=0.5"
-        "Accept-Encoding: gzip, deflate"
-        "Referer: http://httpbin.org/forms/post"
-        "Content-Type: application/x-www-form-urlencoded"
-        "Content-Length: 174"
-        "Cookie: _gauges_unique_hour=1; _gauges_unique_day=1; _gauges_unique_month=1; _gauges_unique_year=1; _gauges_unique=1"
-        "Connection: keep-alive"
-        "Upgrade-Insecure-Requests: 1"
-        ""
-        body
-      ].values())
+    let ua =
+      "User-Agent: Mozilla/5.0 (X11; Ubuntu;" +
+        " Linux x86_64; rv:61.0)" +
+        " Gecko/20100101 Firefox/61.0"
+    let accept =
+      "Accept: text/html,application/xhtml+xml" +
+        ",application/xml;q=0.9,*/*;q=0.8"
+    let cookie =
+      "Cookie: _gauges_unique_hour=1;" +
+        " _gauges_unique_day=1;" +
+        " _gauges_unique_month=1;" +
+        " _gauges_unique_year=1;" +
+        " _gauges_unique=1"
+    let payload: String =
+      "\r\n".join(
+        [ "POST /post HTTP/1.1"
+          "Host: httpbin.org"
+          ua
+          accept
+          "Accept-Language: en-GB,en;q=0.5"
+          "Accept-Encoding: gzip, deflate"
+          "Referer: http://httpbin.org/forms/post"
+          "Content-Type: application/x-www-form-urlencoded"
+          "Content-Length: 174"
+          cookie
+          "Connection: keep-alive"
+          "Upgrade-Insecure-Requests: 1"
+          ""
+          body
+        ].values())
     h.long_test(2_000_000_000)
     h.expect_action("_deliver")
     let reader: Reader = Reader
@@ -681,6 +859,7 @@ class \nodoc\ iso _HTTPParserOneshotBodyTest is UnitTest
 
 class \nodoc\ iso _HTTPParserStreamedBodyTest is UnitTest
   fun name(): String => "http/HTTPParser.StreamedBody"
+
   fun apply(h: TestHelper) =>
     let test_session =
       object is HTTPSession
@@ -699,13 +878,15 @@ class \nodoc\ iso _HTTPParserStreamedBodyTest is UnitTest
           h.complete_action("session._finish")
       end
     let parser = HTTPParser.response(test_session)
-    let payload: String = "\r\n".join([
-      "HTTP/1.1 200 OK"
-      "Content-Length: 10001"
-      "Content-Type: application/octet-stream"
-      ""
-      String.from_array(recover val Array[U8].init('a', 10001) end)
-    ].values())
+    let payload: String =
+      "\r\n".join(
+        [ "HTTP/1.1 200 OK"
+          "Content-Length: 10001"
+          "Content-Type: application/octet-stream"
+          ""
+          String.from_array(
+            recover val Array[U8].init('a', 10001) end)
+        ].values())
     h.long_test(2_000_000_000)
     h.expect_action("_deliver")
     h.expect_action("session._chunk")
@@ -717,7 +898,9 @@ class \nodoc\ iso _HTTPParserStreamedBodyTest is UnitTest
     end
 
 class \nodoc\ _PayloadHeadersAreCaseInsensitive is UnitTest
-  fun name(): String => "http/Payload.HeadersAreCaseInsensitive"
+  fun name(): String =>
+    "http/Payload.HeadersAreCaseInsensitive"
+
   fun apply(h: TestHelper) ? =>
     let url = URL.valid("https://example.com")?
     let request = Payload.request(where url' = url)
