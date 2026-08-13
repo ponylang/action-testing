@@ -19,3 +19,7 @@ See the [llm-skills README](https://github.com/ponylang/llm-skills) for details 
 
 When you start working on this project, load the `pony-skills` skill — it tells your assistant which Pony skill to use for each task.
 <!-- /contributor-only -->
+
+## Linting
+
+Run `make lint` before considering any work done. Fix all issues it reports. `make lint` runs pony-lint, which checks for style and correctness problems in Pony source files. A clean lint run is part of "done" — don't open a PR or report completion with lint issues outstanding.
