@@ -313,9 +313,9 @@ class HTTPParser
     Certain status codes mean there is no body.
     """
     if
-      (_payload.status == 204) // no content
-        or (_payload.status == 304) // not modified
-        or ((_payload.status > 0) and (_payload.status < 200))
+      (_payload.status == 204) // no content or
+        (_payload.status == 304) // not modified or
+        ((_payload.status > 0) and (_payload.status < 200))
     then
       _state = _ExpectReady
     else

@@ -126,12 +126,12 @@ primitive URLEncode
         let c = scheme(i)?
 
         if
-          ((c < 'a') or (c > 'z'))
-            and ((c < 'A') or (c > 'Z'))
-            and ((c < '0') or (c > '9'))
-            and (c != '-')
-            and (c != '+')
-            and (c != '.')
+          ((c < 'a') or (c > 'z')) and
+            ((c < 'A') or (c > 'Z')) and
+            ((c < '0') or (c > '9')) and
+            (c != '-') and
+            (c != '+') and
+            (c != '.')
         then
           return false
         end
@@ -215,13 +215,13 @@ primitive URLEncode
     """
     // The unreserved characters should always be decoded.
     if
-      ((value >= 'a') and (value <= 'z'))
-        or ((value >= 'A') and (value <= 'Z'))
-        or ((value >= '0') and (value <= '9'))
-        or (value == '-')
-        or (value == '_')
-        or (value == '.')
-        or (value == '~')
+      ((value >= 'a') and (value <= 'z')) or
+        ((value >= 'A') and (value <= 'Z')) or
+        ((value >= '0') and (value <= '9')) or
+        (value == '-') or
+        (value == '_') or
+        (value == '.') or
+        (value == '~')
     then
       return true
     end
@@ -260,11 +260,11 @@ primitive URLEncode
 
       // Only hex digits, ':' and '.' and allowed.
       if
-        ((c < 'a') or (c > 'f'))
-          and ((c < 'A') or (c > 'F'))
-          and ((c < '0') or (c > '9'))
-          and (c != ':')
-          and (c != '.')
+        ((c < 'a') or (c > 'f')) and
+          ((c < 'A') or (c > 'F')) and
+          ((c < '0') or (c > '9')) and
+          (c != ':') and
+          (c != '.')
       then
         error
       end

@@ -443,10 +443,10 @@ class trn Payload
     if _response then
       // Errors never have bodies.
       if
-        (status == 204) // no content
-          or (status == 304) // not modified
-          or ((status > 0) and (status < 200))
-          or (status > 400)
+        (status == 204) // no content or
+          (status == 304) // not modified or
+          ((status > 0) and (status < 200)) or
+          (status > 400)
       then
         false
       else
