@@ -66,8 +66,8 @@ class \nodoc\ iso _ConnectionClosedTest is UnitTest
               Payload.request(
                 "GET",
                 URL.build(
-                  "http://" + host + ":"
-                    + port + "/bla")?)
+                  "http://" + host + ":" +
+                    port + "/bla")?)
             req.add_chunk("CHUNK")
             client(
               consume req,
@@ -154,8 +154,8 @@ actor \nodoc\ _Connecter
         Payload.request(
           "GET",
           URL.build(
-            "http://" + host + ":"
-              + port' + "/bla")?)
+            "http://" + host + ":" +
+              port' + "/bla")?)
       req.add_chunk("CHUNK")
       client(
         consume req,
@@ -313,9 +313,9 @@ class \nodoc\ iso _SSLAuthFailedTest is UnitTest
           ]))
     if not (cert_path as FilePath).exists() then
       h.log(
-        "cert path: "
-          + (cert_path as FilePath).path
-          + " does not exist!")
+        "cert path: " +
+          (cert_path as FilePath).path +
+          " does not exist!")
       error
     end
     key_path =
@@ -329,9 +329,9 @@ class \nodoc\ iso _SSLAuthFailedTest is UnitTest
           ]))
     if not (key_path as FilePath).exists() then
       h.log(
-        "key path: "
-          + (key_path as FilePath).path
-          + " does not exist!")
+        "key path: " +
+          (key_path as FilePath).path +
+          " does not exist!")
       error
     end
     ifdef not windows then
@@ -341,9 +341,9 @@ class \nodoc\ iso _SSLAuthFailedTest is UnitTest
           "/usr/share/ca-certificates/mozilla")
       if not (ca_path as FilePath).exists() then
         h.log(
-          "ca path: "
-            + (ca_path as FilePath).path
-            + " does not exist!")
+          "ca path: " +
+            (ca_path as FilePath).path +
+            " does not exist!")
         error
       end
     end
@@ -393,8 +393,8 @@ class \nodoc\ iso _SSLAuthFailedTest is UnitTest
                 Payload.request(
                   "GET",
                   URL.build(
-                    "https://" + host + ":"
-                      + port + "/bla")?)
+                    "https://" + host + ":" +
+                      port + "/bla")?)
               req.add_chunk("CHUNK")
               client(
                 consume req,

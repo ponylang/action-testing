@@ -70,8 +70,8 @@ class \nodoc\ iso _Encode is UnitTest
 
     // Misc characters, encoded.
     h.assert_eq[String](
-      "%23%3C%3E%5B%5D%7B%7D%7C%5E%20"
-        + "%23%3C%3E%5B%5D%7B%7D%7C%5E%25",
+      "%23%3C%3E%5B%5D%7B%7D%7C%5E%20" +
+        "%23%3C%3E%5B%5D%7B%7D%7C%5E%25",
       URLEncode.encode(
         "#<>[]{}|^ %23%3C%3E%5B%5D%7B%7D%7C%5E%25",
         URLPartUser)?)
@@ -284,9 +284,9 @@ class \nodoc\ iso _BuildBasic is UnitTest
     _Test(
       h,
       URL.build(
-        "https://en.wikipedia.org/wiki/Polymorphism_"
-          + "(computer_science)"
-          + "#Parametric_polymorphism")?,
+        "https://en.wikipedia.org/wiki/Polymorphism_" +
+          "(computer_science)" +
+          "#Parametric_polymorphism")?,
       "https",
       "",
       "",
@@ -476,8 +476,8 @@ class \nodoc\ iso _Valid is UnitTest
 
     h.assert_error({() ? =>
       URL.valid(
-        "https://en.wikipedia|org/wiki/Polymorphism_"
-          + "(computer_science)#Parametric_polymorphism")?
+        "https://en.wikipedia|org/wiki/Polymorphism_" +
+          "(computer_science)#Parametric_polymorphism")?
     })
 
     _Test(
@@ -787,7 +787,11 @@ class \nodoc\ iso _HTTPParserOneshotBodyTest is UnitTest
   fun name(): String => "http/HTTPParser.OneshotBody"
 
   fun ref apply(h: TestHelper) =>
-    let body = "custname=Pony+Mc+Ponyface&custtel=%2B490123456789&custemail=pony%40ponylang.org&size=large&topping=bacon&topping=cheese&topping=onion&delivery=&comments=This+is+a+stupid+test"
+    let body =
+      "custname=Pony+Mc+Ponyface&custtel=%2B490123456789" +
+      "&custemail=pony%40ponylang.org&size=large" +
+      "&topping=bacon&topping=cheese&topping=onion" +
+      "&delivery=&comments=This+is+a+stupid+test"
     let test_session =
       object is HTTPSession
         be apply(payload: Payload val) => None

@@ -135,8 +135,8 @@ class val URL
     Combine the components into a string.
     """
     let len =
-      scheme.size() + 3 + user.size() + 1 + password.size() + 1 + host.size()
-        + 6 + path.size() + 1 + query.size() + 1 + fragment.size()
+      scheme.size() + 3 + user.size() + 1 + password.size() + 1 + host.size() +
+        6 + path.size() + 1 + query.size() + 1 + fragment.size()
     let s = recover String(len) end
 
     if scheme.size() > 0 then
