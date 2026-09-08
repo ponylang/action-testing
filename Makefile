@@ -1,6 +1,6 @@
 TAG := docker.pkg.github.com/ponylang/action-testing/test:latest
 
-PACKAGE := http
+PACKAGE := action_testing
 GET_DEPENDENCIES_WITH := corral fetch
 CLEAN_DEPENDENCIES_WITH := corral clean
 COMPILE_WITH := corral run -- ponyc
